@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: "mysql:8.0"
+    ports:
+      - "3308:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_USER: "mysql"
+      MYSQL_PASSWORD: "password"
+      MYSQL_DATABASE: "db470"
+
+  ts-node-express:
+    build:
+      context: ./project-backend
+      dockerfile: Dockerfile
+      target: base
+    depends_on:
+      - mysql
+    volumes:
+      - ./project-backend/src:/home/node/app/src
+    container_name: ts-node-express
+    expose:
+      - '5000'
+    ports:
+      - '5000:5000'
+    command: npm run dev
+
+
+
