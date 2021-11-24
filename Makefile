@@ -21,3 +21,6 @@ migrate:
 
 rollback:
 	docker exec ts-node-express node_modules/.bin/knex migrate:rollback
+
+seed:
+	docker exec ts-node-express node_modules/.bin/knex seed:run
