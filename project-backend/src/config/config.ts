@@ -16,3 +16,9 @@ export const db_config = {
   password: MYSQL_PASSWORD,
   database: MYSQL_DB
 };
+
+const SERVER_PORT = +(process.env.SERVER_PORT || 5000);
+
+export const server_config = {
+  port: SERVER_PORT
+};
