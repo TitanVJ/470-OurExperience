@@ -1,10 +1,9 @@
-import { Router } from 'express';
-import userRouter from './users.routes';
+import express, {Request, Response, NextFunction} from 'express';
+const router = express.Router();
 
-const apiRouter = Router();
-apiRouter.use('/user', userRouter);
+/* GET home page. */
+router.get('/', (req: Request, res: Response, next: NextFunction) => {
+  res.redirect('/student');
+});
 
-const baseRouter = Router();
-baseRouter.use('/api', apiRouter);
-
-export default baseRouter;
+export = router;
