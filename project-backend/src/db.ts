@@ -8,4 +8,4 @@ const connectionConfig = knexConfig[environment];
 const Knex = knex(connectionConfig);
 Model.knex(Knex);
 
-export default Knex;
+export default Model;
