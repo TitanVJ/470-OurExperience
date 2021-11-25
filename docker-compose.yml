@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: 'mysql:8.0'
+    container_name: mysql_db
+    restart: always
+    ports:
+      - '3308:3306'
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+
+  # admin interface for database
+  adminer:
+    depends_on:
+      - mysql
+    image: adminer
+    container_name: adminer-db-interface
+    restart: always
+    ports:
+      - 9000:8080
+
+  ts-node-express:
+    build:
+      context: ./project-backend
+      dockerfile: Dockerfile
+      target: base
+    depends_on:
+      - mysql
+    volumes:
+      - ./project-backend/src:/home/node/app/src
+    container_name: ts-node-express
+    expose:
+      - '5000'
+    ports:
+      - '5000:5000'
+    command: npm run dev
