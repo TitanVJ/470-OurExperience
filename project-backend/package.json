@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "clean": "rm -rf ./build",
+    "build": "npm run clean && tsc -p . && npm run copyfiles",
+    "copyfiles": "copyfiles -e './src/node_modules/**/*' ./src/**/*.html ./src/**/*.css ./src/**/*.pug ./build",
     "start": "NODE_PATH=./build node build/app.js",
-    "build": "rm -rf build/ && tsc -p .",
     "dev": "nodemon src/app.ts",
     "test": "jest"
   },
@@ -33,6 +35,7 @@
     "@types/morgan": "^1.9.3",
     "@types/pug": "^2.0.5",
     "@types/supertest": "^2.0.11",
+    "copyfiles": "^2.4.1",
     "nodemon": "^2.0.15",
     "supertest": "^6.1.6",
     "ts-jest": "^27.0.7",
