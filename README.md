@@ -1,32 +1,32 @@
-<h1>Project Build and Deploy Instructions</h1>
+# Project Build and Deploy Instructions
 
 Proceed with Section A if:
 
-1. This is your first time setting up the environment<br>
-2. New dependencies were added<br>
+1. This is your first time setting up the environment
+1. New dependencies were added
 
-Otherwise proceed to Section B<br>
+Otherwise proceed to Section B
 
-<h3>Section A</h3>
+## Section A
 Instructions on setting up the build (From the ./ directory)
 
-- make setup<br>
+ * `make setup`
 
-<h3>Section B</h3>
+## Section B
 Steps to run (From the ./ directory)
 
-- make build<br>
-- make up<br>
+ * `make build`
+ * `make up`
 
 To visit the serverside
 
-- Go to the following URL: http://localhost:5000/<br>
+ * Go to the following URL: [http://localhost:5000/](http://localhost:5000/)
 
 To shut down the Docker containers (From the ./ directory)
 
-- make stop<br>
+ * `make stop`
 
-\*\*\* If permission is denied, do the following<br>
+### **If permission is denied, do the following**
 
-- chmod +x setup.sh
-- ./setup.sh<br>
+ * `chmod +x setup.sh`
+ * `./setup.sh`
