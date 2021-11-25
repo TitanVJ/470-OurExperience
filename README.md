@@ -30,3 +30,11 @@ To shut down the Docker containers (From the ./ directory)
 
 - chmod +x setup.sh
 - ./setup.sh<br>
+
+<h1>Adminer/DB Mysql login</h1>
+- System: MySQL
+- Server: mysql
+- Username: mysql
+- password: password
+- database: db470
+
