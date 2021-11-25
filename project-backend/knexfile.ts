@@ -12,10 +12,10 @@ module.exports = {
       database: db_config.database
     },
     migrations: {
-      directory: './db/migrations'
+      directory: './src/db/migrations'
     },
     seeds: {
-      directory: './db/seeds'
+      directory: './src/db/seeds'
     }
   }
 };

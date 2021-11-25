@@ -1,5 +1,5 @@
 import { Knex } from 'knex';
-import tableNames from '../../src/constants/tableNames';
+import tableNames from '../../constants/tableNames';
 import bcrypt from 'bcryptjs';
 
 export async function seed(knex: Knex): Promise<void> {
