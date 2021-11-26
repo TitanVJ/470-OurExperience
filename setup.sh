@@ -1,3 +1,3 @@
-cd project-backend
+cd our-experience-app
 npm install
 cd ..

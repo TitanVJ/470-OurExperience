@@ -26,13 +26,13 @@ services:
 
   ts-node-express:
     build:
-      context: ./project-backend
+      context: ./our-experience-app
       dockerfile: Dockerfile
       target: base
     depends_on:
       - mysql
     volumes:
-      - ./project-backend/src:/home/node/app/src
+      - ./our-experience-app/src:/home/node/app/src
     container_name: ts-node-express
     expose:
       - '5000'
