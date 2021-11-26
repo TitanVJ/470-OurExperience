@@ -5,13 +5,11 @@ export class Company extends Model {
     return 'Company';
   }
 
-  static get relationalMappings() {
-    const JobPosting = require('./job_posting.model');
-
+  static get relationMappings() {
     return {
       job_postings: {
         relation: Model.HasManyRelation,
-        modelClass: JobPosting,
+        modelClass: `${__dirname}/job_posting.model`,
         join: {
           from: 'Company.id',
           to: 'JobPosting.companyId'

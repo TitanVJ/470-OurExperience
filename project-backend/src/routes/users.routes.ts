@@ -10,11 +10,8 @@ router.get('/', async (req, res, next) => {
   // const users = await User.query();
   // res.json(users);
 
-  const companies = await Company.query().joinRelated('pets');
+  const companies = await Company.query().withGraphFetched('job_postings');
   res.json(companies);
-
-  // const jobPostings = await JobPosting.query().joinRelated('company');
-  // res.json(jobPostings);
 });
 
 export default router;
