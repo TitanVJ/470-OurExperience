@@ -1,5 +1,22 @@
 extends layout
 
+append style
+  link(rel='stylesheet' type='text/css' href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css")
+
+append scripts
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js")
+  script(src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js")
+  script.
+    $(document).ready( function () {
+      $('#job_postings').DataTable();
+    });
+
 block content
   h1= title
-  p Should be a page with all hte jobs listed
+  table#job_postings.display
+    thead
+        th Company
+    tbody
+      for job in postings
+        tr
+          td #{job.name}
