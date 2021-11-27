@@ -1,3 +1,6 @@
+# Greg and TAs
+Go to [instructor_ta_instructions.md](./markdown/instructor_ta.md)
+
 # Project Build and Deploy Instructions
 
 Proceed with Section A if:
