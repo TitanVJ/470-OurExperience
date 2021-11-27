@@ -1,0 +1,38 @@
+#wrapper{
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    gap: 1em;
+    grid-template-columns: 30% auto 30%;
+
+  }
+
+  h1 {
+    grid-column-start: 2;
+  }
+
+  table{
+    grid-column-start: 2;
+
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+
+  td {
+    padding: 0.5em;
+  }
+
+
+  .label td {
+    background-color: lavender;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .value td {
+    padding-left: 1.5em;
+  }
+
+footer {
+    grid-column-start: 2;
+}

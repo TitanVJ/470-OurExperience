@@ -15,8 +15,15 @@ block content
   h1= title
   table#job_postings.display
     thead
-        th Company
+        th Id
+        th Job Title
+        th Organization
     tbody
       for job in postings
         tr
-          td #{job.name}
+          td #{ job.id }
+          td
+            a(href='/career/job/'+job.id) #{ job.job_postings[0].title }
+          td #{ job.name }
+
+  a(href="/") Back to Dashboard

@@ -1,5 +1,27 @@
 extends layout
 
+block style
+    link(rel='stylesheet' type='text/css' href="/stylesheets/job.css")
+
 block content
-  h1= title
-  p job listing page wiht all the details
+  section#wrapper
+    h1= title
+    table(border=1)
+      tr.label
+        td Organization
+      tr.value
+        td #{ company.name }
+
+      tr.label
+        td Deadline
+      tr.value
+        td #{ job.deadline }
+
+      tr.label
+        td Description
+      tr.value
+        td #{ job.description }
+
+    footer
+      a(href="/career") Back to Job Postings |
+      a(href="/") Back to Dashboard
