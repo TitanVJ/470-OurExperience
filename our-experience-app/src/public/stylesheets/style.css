@@ -6,6 +6,17 @@ body {
 .navbar-custom {
   background: #efeded;
 }
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+  color: #a6192e;
+}
+
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: #a6192e;
+  font-weight: bold;
+}
 
 .sfu-theme {
   color: #a6192e !important;
