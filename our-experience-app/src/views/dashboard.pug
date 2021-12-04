@@ -1,8 +1,74 @@
 extends layout
 
+block style
+    link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
+    link(rel='stylesheet' type='text/css' href="http://fonts.cdnfonts.com/css/habibi")
 block content
   h1= title
-  p= message
-  |
-  p
-    a( href='/career') Click to see current Job Postings
+  a( href='/career') Click to see current Job Postings
+
+  
+  section#dashboard
+    div.first 
+      h1 Upcoming Events 
+      ul
+        li.underline 2021 Resume and cover letter workshop 
+        br
+        |July 12, 2021
+        li
+          button.button1 Register
+          button.button2 Info
+        li.underline Creating the perfect Linkedin profile 
+        br 
+        |July 13, 2021
+        li
+          button.button1 Register
+          button.button2 Info
+        li.underline Microsoft information session Summer 2021 
+        br
+        |July 28, 2021
+        li
+          button.button1 Register
+          button.button2 Info
+        li.underline Q&A Jerry Lou - Amazon Software Engineer 
+        br
+        |August 5, 2021
+        li
+          button.button1 Register
+          button.button2 Info
+        li.underline Opfair 2021 
+        br
+        |August 22, 2021
+        li
+          button.button1 Register
+          button.button2 Info
+        li.underline WiE Hackathon 2021 
+        br
+        |August 30, 2021
+        li
+          button.button1 Register
+          button.button2 Info
+    div.second
+      h1 New Messages [3]
+      div.second-a 
+      ul.ul1
+        li.li1 
+          a(href="https://cas.sfu.ca/cas/login?service=https%3A%2F%2Fidp.sfu.ca%2Fidp%2FAuthn%2FExternal%3Fconversation%3De6s1%26entityId%3Dhttp%3A%2F%2Ffs.sfu.ca%2Fadfs%2Fservices%2Ftrust") RBC - your application to Fall 2021 co-op has been submitted...
+        li.li1 
+          a(href="https://cas.sfu.ca/cas/login?service=https%3A%2F%2Fidp.sfu.ca%2Fidp%2FAuthn%2FExternal%3Fconversation%3De6s1%26entityId%3Dhttp%3A%2F%2Ffs.sfu.ca%2Fadfs%2Fservices%2Ftrust") Summer 2021 resume and cover letter workshop - you have succ...
+        li.li1 
+          a(href="https://cas.sfu.ca/cas/login?service=https%3A%2F%2Fidp.sfu.ca%2Fidp%2FAuthn%2FExternal%3Fconversation%3De6s1%26entityId%3Dhttp%3A%2F%2Ffs.sfu.ca%2Fadfs%2Fservices%2Ftrust") Google - Thank you for your interest in our Spring 2021 Soft...
+      button.button2.center Go to Mailbox
+      h1 Useful Links
+      div.second-b 
+      ul.ul1
+        li.li1 
+          a(href="http://www.sfu.ca/coop.html") Apply for co-op
+        li.li1 
+          a(href="https://www.sfu.ca/coop/programs/sci/prospective.html") Prequisites before access to ourExperience job portal
+        li.li1 
+          a(href="https://www.sfu.ca/students/academicadvising/contact.html") Schedule a meeting with an advisor
+        li.li1 
+          a(href="https://www.sfu.ca/students/career/looking-for-work/resume-coverletter.html") Creating an effective resume and cover letter
+        li.li1 
+          a(href="https://www.sfu.ca/coop/faq.html") FAQS
