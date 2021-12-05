@@ -1,5 +1,5 @@
 const tableNames = {
-  user: 'user'
+  user: 'User'
 };
 
 export default tableNames;
