@@ -1,8 +1,28 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* padding: 50px; */
+  /* font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif; */
+}
+/* change the link color */
+/* change the color of active or hovered links */
+
+.navbar-custom {
+  background: #efeded;
+}
+.navbar-custom .navbar-nav .nav-link {
+  color: #a6192e;
+  background: #efeded;
+}
+
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: #a6192e;
+  font-weight: bold;
+}
+
+.sfu-theme {
+  color: #a6192e !important;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }

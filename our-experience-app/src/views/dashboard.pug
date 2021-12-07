@@ -1,17 +1,17 @@
 extends layout
 
-block style
+append style
     link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
     link(rel='stylesheet' type='text/css' href="http://fonts.cdnfonts.com/css/habibi")
 block content
-  h1= title
-  a( href='/career') Click to see current Job Postings
-
+  .container
+    h1= title
+    a( href='/career') Click to see current Job Postings
   
-  section#dashboard
+  section.content#dashboard
     div.first 
       h1 Upcoming Events 
-      ul
+      ul.custom
         li.underline 2021 Resume and cover letter workshop 
         br
         |July 12, 2021
@@ -51,7 +51,7 @@ block content
     div.second
       h1 New Messages [3]
       div.second-a 
-      ul.ul1
+      ul.custom.ul1
         li.li1 
           a(href="https://cas.sfu.ca/cas/login?service=https%3A%2F%2Fidp.sfu.ca%2Fidp%2FAuthn%2FExternal%3Fconversation%3De6s1%26entityId%3Dhttp%3A%2F%2Ffs.sfu.ca%2Fadfs%2Fservices%2Ftrust") RBC - your application to Fall 2021 co-op has been submitted...
         li.li1 
