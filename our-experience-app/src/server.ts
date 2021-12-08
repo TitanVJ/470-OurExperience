@@ -4,8 +4,7 @@ import helmet from 'helmet';
 import path from 'path';
 import session from 'express-session';
 import flash from 'connect-flash';
-
-import middlewares from './middlewares';
+import middlewares from './middlewares/middlewares';
 
 const indexRouter = require('./routes/index');
 const studentRouter = require('./routes/student');
@@ -63,7 +62,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
-  res.locals.errors = req.flash('errors');
+  res.locals.error = req.flash('error');
   next();
 });
 

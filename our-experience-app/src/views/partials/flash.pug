@@ -1,11 +1,13 @@
 if (success && success.length)
-  .alert.alert-success.alert-dismissible.fade.show(role="alert")
-    for s in success 
-      div= s
-    button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
+  .container.mt-5
+    .alert.alert-success.alert-dismissible.fade.show(role="alert")
+      for s in success 
+        div= s
+      button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
 
-if (errors && errors.length)
-  .alert.alert-danger.alert-dismissible.fade.show(role="alert")
-    for error in errors 
-      div= error
-    button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
+if (error && error.length)
+  .container.mt-5
+    .alert.alert-danger.alert-dismissible.fade.show(role="alert")
+      for err in error
+        div= err
+      button(type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close")
