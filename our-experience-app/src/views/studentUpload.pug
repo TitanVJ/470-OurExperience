@@ -12,3 +12,6 @@ block content
             input(class="form-control" name='pdfUpload' type="file" id="formFile")
           .mb-3
             button(type='submit').btn.btn-primary Submit
+      br
+      if file && filename
+        a(href='/student/test') download test

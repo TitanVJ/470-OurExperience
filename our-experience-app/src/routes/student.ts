@@ -18,4 +18,6 @@ router.get('/upload', studentController.getUploadPage);
 
 router.post('/upload', studentController.postUploadPage);
 
+router.get('/test', studentController.download); // delete this later
+
 export = router;
