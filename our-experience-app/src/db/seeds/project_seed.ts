@@ -46,4 +46,6 @@ export async function seed(knex: Knex): Promise<void> {
       title: 'Software Developer Co-op'
     }
   ]);
+
+  await knex('JobApplication').insert([{ postingId: 1, userId: 1, status: 'submitted' }]);
 }
