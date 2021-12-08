@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { pdfUpload } from '../middlewares/multerMiddleware';
+const singlePdfUpload = pdfUpload.single('pdfUpload');
 
 const inputtedReqFile = (req: any, filepath: any, mimetype: any) => {
   const { filename, size } = req.file;
@@ -12,7 +13,7 @@ const getUploadPage = (req: Request, res: Response, next: NextFunction) => {
 
 const postUploadPage = (req: Request, res: Response, next: NextFunction) => {
   try {
-    pdfUpload(req, res, (err: any) => {
+    singlePdfUpload(req, res, (err: any) => {
       if (err) {
         req.flash('error', err.message);
         return res.status(400).redirect('/student/upload');
@@ -25,7 +26,7 @@ const postUploadPage = (req: Request, res: Response, next: NextFunction) => {
         const filepath = req.file.path;
         const mimetype = req.file.mimetype;
 
-        req.flash('success', ['file submitted']);
+        req.flash('success', ['file submitted', `${req.file.path}`]);
         return res.redirect('/student/upload');
       }
     });

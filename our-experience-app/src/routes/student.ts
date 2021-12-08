@@ -16,7 +16,7 @@ router.get('/dashboard', (req: Request, res: Response, next: NextFunction) => {
 /* student upload pdf file*/
 router.get('/upload', studentController.getUploadPage);
 
-router.post('/upload', studentController.postUploadPage);
+router.post('/upload', pdfUpload.single('pdfUpload'), studentController.postUploadPage);
 
 router.get('/test', studentController.download); // delete this later
 

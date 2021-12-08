@@ -20,12 +20,16 @@ export const pdfUpload = multer({
   fileFilter: (req: Request, file: any, cb: any) => {
     checkFIleType(file, cb);
   }
-}).single('pdfUpload');
+});
 
 const checkFIleType = (file: any, cb: any) => {
   const fileTypes = /pdf/;
   const fileExtention = fileTypes.test(path.extname(file.originalname.toLowerCase()));
   const mimeType = fileTypes.test(file.mimetype);
+
+  if (!file) {
+    return cb(new Error('Must pass file'));
+  }
 
   if (fileExtention && mimeType) {
     return cb(null, true);
