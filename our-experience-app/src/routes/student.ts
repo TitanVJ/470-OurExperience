@@ -1,4 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
+import studentController from '../controllers/studentController';
+import { pdfUpload } from '../middlewares/multerMiddleware';
+
 const router = express.Router();
 
 /* GET home page. */
@@ -11,9 +14,8 @@ router.get('/dashboard', (req: Request, res: Response, next: NextFunction) => {
 });
 
 /* student upload pdf file*/
-router.get('/upload', (req: Request, res: Response, next: NextFunction) => {
-  req.flash('success', 'wait lol');
-  res.render('studentUpload', { title: 'Upload Resume' });
-});
+router.get('/upload', studentController.getUploadPage);
+
+router.post('/upload', studentController.postUploadPage);
 
 export = router;

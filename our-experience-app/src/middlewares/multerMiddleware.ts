@@ -2,7 +2,7 @@ import { Request } from 'express';
 
 const multer = require('multer');
 const path = require('path');
-const storagePath = 'public/uploads';
+const storagePath = path.join(__dirname, '../public/uploads/');
 
 const configurationStorage = multer.diskStorage({
   destination: (req: Request, file: any, cb: any) => {
@@ -11,7 +11,7 @@ const configurationStorage = multer.diskStorage({
 
   filename: function (req: Request, file: any, cb: any) {
     const filename = new Date().valueOf() + '_' + file.originalname;
-    cb(null);
+    cb(null, filename);
   }
 });
 
@@ -25,6 +25,6 @@ export const pdfUpload = multer({
     if (fileExtention && mimeType) {
       return cb(null, true);
     }
-    return cb('Error: Pdf only', false);
+    return cb(new Error('pdf only!'));
   }
-});
+}).single('pdfUpload');

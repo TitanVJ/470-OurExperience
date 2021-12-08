@@ -62,7 +62,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
-  res.locals.errors = req.flash('errors');
+  res.locals.error = req.flash('error');
   next();
 });
 

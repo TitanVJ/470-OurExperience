@@ -9,6 +9,6 @@ block content
         form(action="/student/upload" method='POST' enctype='multipart/form-data')
           .mb-3
             label(for="formFile" class="form-label sfu-theme") Pdf File Submission
-            input(class="form-control" type="file" id="formFile")
+            input(class="form-control" name='pdfUpload' type="file" id="formFile")
           .mb-3
             button(type='submit').btn.btn-primary Submit
