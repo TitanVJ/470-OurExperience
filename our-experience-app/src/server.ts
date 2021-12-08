@@ -4,8 +4,7 @@ import helmet from 'helmet';
 import path from 'path';
 import session from 'express-session';
 import flash from 'connect-flash';
-
-import middlewares from './middlewares';
+import middlewares from './middlewares/middlewares';
 
 const indexRouter = require('./routes/index');
 const studentRouter = require('./routes/student');
