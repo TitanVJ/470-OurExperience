@@ -1,4 +1,4 @@
-import express, {Request, Response, NextFunction} from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { Company } from '../models/company.model';
 import { JobPosting } from '../models/job_posting.model';
 
@@ -11,14 +11,14 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 router.get('/postings', async (req: Request, res: Response, next: NextFunction) => {
   const job_posts = await Company.query().withGraphFetched('job_postings');
-  res.render('career_postings', { title: "Current Job Postings", postings: job_posts });
+  res.render('career_postings', { title: 'Current Job Postings', postings: job_posts });
 });
 
 router.get('/job/:id', async (req: Request, res: Response, next: NextFunction) => {
-  const job: any = await JobPosting.query().findById( req.params.id ).joinRelated(Company);
-  const company: any = await Company.query().findById( job.companyId ).select('name');
-  console.log(job, company);
-  res.render('job', { title: job.title, job: job, company: company });
+  const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
+  // const company: any = await Company.query().findById( job.companyId ).select('name');
+  console.log(job);
+  res.render('job', { title: job.title, job: job, company: job.company });
 });
 
 export = router;

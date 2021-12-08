@@ -14,6 +14,18 @@ export class JobPosting extends Model {
           from: 'JobPosting.companyId',
           to: 'Company.id'
         }
+      },
+      applicants: {
+        relation: Model.ManyToManyRelation,
+        modelClass: `${__dirname}/user.model`,
+        join: {
+          from: 'JobPosting.id',
+          through: {
+            from: 'JobApplication.postingId',
+            to: 'JobApplication.userId'
+          },
+          to: 'User.id'
+        }
       }
     };
   }
