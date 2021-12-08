@@ -1,0 +1,122 @@
+#dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.first {
+  padding: 20px;
+  flex: 1;
+}
+
+a {
+  color: firebrick;
+  text-decoration: none;
+}
+
+h1 {
+  background-color: white;
+  font-family: 'Habibi';
+}
+
+ul {
+  background-color: white;
+  margin: 0 0 0 0;
+  padding: 0;
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+
+ul.ul1 {
+  background-color: lightgrey;
+  columns: 1;
+  -webkit-columns: 1;
+  -moz-columns: 1;
+}
+
+section li {
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  list-style-type: none;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+li.li1 {
+  margin-left: 1em;
+}
+
+#dashboard .underline {
+  font-size: medium;
+  border-bottom: 2px solid firebrick;
+  margin: 0;
+  width: 100%;
+}
+
+.second {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.second-a {
+  background-color: lightgray;
+  flex: 1;
+}
+
+.second-b {
+  background-color: lightgray;
+  flex: 1;
+}
+
+button {
+  background-color: firebrick;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 16px;
+  margin: 4px 2px;
+  padding: 10px 24px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: firebrick;
+  color: white;
+  border: 2px solid firebrick;
+}
+
+.button1:hover {
+  background-color: white;
+  color: firebrick;
+}
+
+.button2 {
+  background-color: white;
+  color: firebrick;
+  border: 2px solid firebrick;
+}
+
+.button2:hover {
+  background-color: firebrick;
+  color: white;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p1 {
+  background-color: lightgray;
+  flex: 1;
+}
