@@ -5,6 +5,11 @@ body {
 /* change the link color */
 /* change the color of active or hovered links */
 
+.header {
+  padding-top: 12pt;
+  margin-bottom: -12pt;
+}
+
 .navbar-custom {
   background: #efeded;
 }
