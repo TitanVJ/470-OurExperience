@@ -34,6 +34,15 @@ To shut down the Docker containers (From the ./ directory)
  * `chmod +x setup.sh`
  * `./setup.sh`
 
+### CAS Stuff
+
+The cas server will build along side everything else following the above make commands. Ensure you've fun the following commands to setup the db tables and entries, otherwise good luck logging in :
+```
+    make migrate
+    make seed
+```
+
+To avoid have to login during development set the `CAS_DEV_MODE` env variable to true in [.env](./.env). When this is set to true the cas_user session field will be set to whatever `CAS_DEV_USER` environement variable is set to.
 
 # Adminer/DB Mysql login
  * System: MySQL
