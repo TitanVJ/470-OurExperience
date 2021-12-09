@@ -2,5 +2,16 @@ extends layout
 
 block content 
   h1= title
-  for application in applications
-    div #{ application }
+  table#applications 
+    thead 
+      th Id
+      th Job Title
+      th Organization 
+      th Status
+    tbody 
+      for application in applications 
+        tr 
+          td #{ application.id }
+          td #{ application.posting.title }
+          td Default 
+          td #{ application.status }
