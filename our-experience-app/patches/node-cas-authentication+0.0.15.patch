@@ -1,0 +1,52 @@
+diff --git a/node_modules/node-cas-authentication/index.js b/node_modules/node-cas-authentication/index.js
+index f2d6131..acaf493 100644
+--- a/node_modules/node-cas-authentication/index.js
++++ b/node_modules/node-cas-authentication/index.js
+@@ -33,7 +33,7 @@ var AUTH_TYPE = {
+  * @constructor
+  */
+ function CASAuthentication(options) {
+-
++    console.log('Initilizing CERES GROUP modified CAS client!');
+     if (!options || typeof options !== 'object') {
+         throw new Error( 'CAS Authentication was not given a valid configuration object.');
+     }
+@@ -148,7 +148,7 @@ function CASAuthentication(options) {
+     var parsed_cas_url   = url.parse(this.cas_url);
+     this.request_client  = parsed_cas_url.protocol === 'http:' ? http : https;
+     this.cas_host        = parsed_cas_url.hostname;
+-    this.cas_port        = parsed_cas_url.protocol === 'http:' ? 80 : 443;
++    this.cas_port        = parsed_cas_url.port;
+     this.cas_path        = parsed_cas_url.pathname;
+     this.return_to       = options.return_to;
+
+@@ -247,7 +247,7 @@ CASAuthentication.prototype._login = function(req, res, next) {
+
+     // Save the return URL in the session. If an explicit return URL is set as a
+     // query parameter, use that. Otherwise, just use the URL from the request.
+-    req.session.cas_return_to = req.query.returnTo || this.return_to || url.parse(req.url).path;
++    req.session.cas_return_to = req.query.returnTo || url.parse(req.url).path;
+
+     // Set up the query parameters.
+     var query = {
+@@ -256,7 +256,9 @@ CASAuthentication.prototype._login = function(req, res, next) {
+     };
+
+     // Redirect to the CAS login.
+-    res.redirect( this.cas_url + url.format({
++    var ceres_url = `https://${req.hostname}:${this.cas_port}${this.cas_path}`;
++
++    res.redirect( ceres_url + url.format({
+         pathname: '/login',
+         query: query
+     }));
+@@ -401,7 +403,8 @@ CASAuthentication.prototype.logout = function(req, res, next) {
+     }
+
+     // Redirect the client to the CAS logout.
+-    res.redirect(this.cas_url + '/logout');
++    var ceres_url = `https://${req.hostname}:${this.cas_port}${this.cas_path}`;
++    res.redirect(ceres_url + '/logout');
+ };
+
+ /**
