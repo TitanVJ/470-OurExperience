@@ -3,6 +3,15 @@ body {
   /* font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif; */
 }
 
+#branding {
+  color: black;
+}
+
+.header {
+  padding-top: 12pt;
+  margin-bottom: -12pt;
+}
+
 .navbar-custom {
   background: #efeded;
 }

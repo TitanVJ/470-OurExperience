@@ -20,8 +20,10 @@ app.set('view engine', 'pug');
 app.use(morgan('tiny'));
 
 const scriptSources = ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdn.datatables.net', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net/'];
-const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/'];
+const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/', 'fonts.cdnfonts.com'];
 const connectSources = ["'self'"];
+const imgSrc = ['w3.org', 'upload.wikimedia.org'];
+const fontSrc = ['fonts.cdnfonts.com'];
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
@@ -40,7 +42,7 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
-/* app.use(
+app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
@@ -48,12 +50,13 @@ app.use(flash());
       scriptSrcElem: scriptSources,
       styleSrc: styleSources,
       connectSrc: connectSources,
-      imgSrc: ["'self'", 'blob:', 'data:', 'w3.org']
+      imgSrc: ["'self'", 'blob:', 'data:', ...imgSrc],
+      fontSrc: ["'self'", ...fontSrc]
     }
   })
 );
 
-app.use(helmet({ contentSecurityPolicy: false })); */
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
