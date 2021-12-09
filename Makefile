@@ -1,4 +1,5 @@
 setup:
+	git submodule update --init
 	./setup.sh
 
 build:
