@@ -1,3 +1,3 @@
 cd our-experience-app
-npm install
+npm ci
 cd ..

@@ -22,3 +22,29 @@ const SERVER_PORT = +(process.env.SERVER_PORT || 5000);
 export const server_config = {
   port: SERVER_PORT
 };
+
+export const session_config = {
+  secret            : process.env.SESSION_SECRET || 'super secret dev secret',
+  resave            : false,
+  saveUninitialized : true,
+  cookie: {
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true
+  }
+};
+
+export const cas_config = {
+  cas_url         : 'https://cas:8443/cas',
+  service_url     : `http://localhost:${SERVER_PORT}`,
+  cas_version     : '3.0',
+  cas_port        : 8443,
+  renew           : false,
+  is_dev_mode     : process.env.CAS_DEV_MODE,
+  dev_mode_user   : '',
+  dev_mode_info   : {},
+  session_name    : 'cas_user',
+  session_info    : 'cas_userinfo',
+  destroy_session : false,
+  return_to       : `http://localhost:${SERVER_PORT}`
+};
