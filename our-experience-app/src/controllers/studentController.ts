@@ -13,8 +13,8 @@ const getUploadPage = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const postUploadPage = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    singlePdfUpload(req, res, async (err: any) => {
+  singlePdfUpload(req, res, async (err: any) => {
+    try {
       if (err) {
         req.flash('error', err.message);
         return res.status(400).redirect('/student/upload');
@@ -38,16 +38,16 @@ const postUploadPage = async (req: Request, res: Response, next: NextFunction) =
 
         const document = await Document.query().insert(newDocument);
         if (!document) {
-          throw new Error('failed to upload');
+          throw new Error('Unable to save to database');
         }
 
         req.flash('success', ['file submitted', `${req.file.filename}`]);
         return res.redirect('/student/upload');
       }
-    });
-  } catch (error: any) {
-    next(error);
-  }
+    } catch (error) {
+      next(error);
+    }
+  });
 };
 
 export default { getUploadPage, postUploadPage };
