@@ -1,8 +1,19 @@
 extends layout 
 
+append style 
+  link(rel='stylesheet' type='text/css' href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css")
+
+append scripts 
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js")
+  script(src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js")
+  script.
+    $(document).ready( function () {
+      $('#applications').DataTable();
+    });
+
 block content 
   h1= title
-  table#applications 
+  table#applications.display
     thead 
       th Id
       th Job Title
