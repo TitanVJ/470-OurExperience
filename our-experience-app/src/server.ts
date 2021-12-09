@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const studentRouter = require('./routes/student');
 const companyRouter = require('./routes/company');
 const careerRouter = require('./routes/career');
+const applicationRouter = require('./routes/application');
 
 const app = express();
 
@@ -72,6 +73,7 @@ app.use('/', indexRouter);
 app.use('/student', studentRouter);
 // app.use('/company', companyRouter);
 app.use('/career', careerRouter);
+app.use('/application', applicationRouter);
 
 // catch 404's and handle erros
 app.use(middlewares.notFound);
