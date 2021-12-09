@@ -1,7 +1,11 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import path from 'path';
+import session from 'express-session';
+import { cas_config, session_config } from './config/config';
+
+const CASAuthentication = require('node-cas-authentication');
 
 import middlewares from './middlewares';
 
@@ -15,6 +19,9 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.use( session( session_config ));
+const cas = new CASAuthentication( cas_config );
 
 app.use(morgan('tiny'));
 
@@ -42,10 +49,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes
-app.use('/', indexRouter);
-app.use('/student', studentRouter);
+app.use('/', cas.bounce, indexRouter);
+app.use('/student', cas.bounce, studentRouter);
 // app.use('/company', companyRouter);
-app.use('/career', careerRouter);
+app.use('/career', cas.bounce, careerRouter);
 
 // catch 404's and handle erros
 app.use(middlewares.notFound);
