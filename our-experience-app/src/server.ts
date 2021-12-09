@@ -4,11 +4,10 @@ import helmet from 'helmet';
 import path from 'path';
 import session from 'express-session';
 import flash from 'connect-flash';
+import middlewares from './middlewares/middlewares';
 import { cas_config, session_config } from './config/config';
 
 const CASAuthentication = require('node-cas-authentication');
-
-import middlewares from './middlewares';
 
 const indexRouter = require('./routes/index');
 const studentRouter = require('./routes/student');
@@ -21,14 +20,16 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use( session( session_config ));
-const cas = new CASAuthentication( cas_config );
+app.use(session(session_config));
+const cas = new CASAuthentication(cas_config);
 
 app.use(morgan('tiny'));
 
 const scriptSources = ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdn.datatables.net', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net/'];
-const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/'];
+const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/', 'fonts.cdnfonts.com'];
 const connectSources = ["'self'"];
+const imgSrc = ['w3.org', 'upload.wikimedia.org'];
+const fontSrc = ['fonts.cdnfonts.com'];
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
@@ -47,7 +48,7 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
-/* app.use(
+app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
@@ -55,12 +56,13 @@ app.use(flash());
       scriptSrcElem: scriptSources,
       styleSrc: styleSources,
       connectSrc: connectSources,
-      imgSrc: ["'self'", 'blob:', 'data:', 'w3.org']
+      imgSrc: ["'self'", 'blob:', 'data:', ...imgSrc],
+      fontSrc: ["'self'", ...fontSrc]
     }
   })
 );
 
-app.use(helmet({ contentSecurityPolicy: false })); */
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -69,7 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
-  res.locals.errors = req.flash('errors');
+  res.locals.error = req.flash('error');
   next();
 });
 

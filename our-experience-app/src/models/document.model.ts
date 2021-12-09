@@ -1,6 +1,13 @@
 import Model from '../db';
 
 export class Document extends Model {
+  id!: number;
+  userId!: number;
+  filepath!: string;
+  mimeType!: string;
+  documentType!: string;
+  createdAt?: string;
+
   static get tableName() {
     return 'Document';
   }

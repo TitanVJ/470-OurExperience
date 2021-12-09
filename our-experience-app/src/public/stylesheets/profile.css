@@ -1,0 +1,55 @@
+#profile {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+.first-p {
+    padding: 20px;
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.first-p-a {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.first-p-b {
+    flex: 1;
+}
+
+.second-p {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.second-p-a {
+    flex: 1;
+    margin-bottom: 30px;
+}
+
+.second-p-b {
+    flex: 1;
+}
+
+img.pfp {
+    border-radius: 50%;
+    width: 256px;
+    height: 256px;
+    margin-bottom: 20px;
+}
+
+div.pfp {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: 120px;
+}
