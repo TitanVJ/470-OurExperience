@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { pdfUpload } from '../middlewares/multerMiddleware';
 const singlePdfUpload = pdfUpload.single('pdfUpload');
+import { Document } from '../models/document.model';
 
 const inputtedReqFile = (req: any, filepath: any, mimetype: any) => {
   const { filename, size } = req.file;
@@ -8,12 +9,12 @@ const inputtedReqFile = (req: any, filepath: any, mimetype: any) => {
 };
 
 const getUploadPage = (req: Request, res: Response, next: NextFunction) => {
-  res.render('studentUpload', { title: 'Upload Resume' });
+  res.render('studentUpload', { title: 'Upload Document' });
 };
 
-const postUploadPage = (req: Request, res: Response, next: NextFunction) => {
+const postUploadPage = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    singlePdfUpload(req, res, (err: any) => {
+    singlePdfUpload(req, res, async (err: any) => {
       if (err) {
         req.flash('error', err.message);
         return res.status(400).redirect('/student/upload');
@@ -23,10 +24,24 @@ const postUploadPage = (req: Request, res: Response, next: NextFunction) => {
           return res.status(400).redirect('/student/upload');
         }
 
+        // can submit file to db
         const filepath = req.file.path;
         const mimetype = req.file.mimetype;
 
-        req.flash('success', ['file submitted', `${req.file.path}`]);
+        const HARD_CODED_ID = 1; // TODO: change to currently logged in user
+        const newDocument = {
+          userId: HARD_CODED_ID,
+          filepath: req.file.path,
+          mimeType: req.file.mimetype,
+          documentType: req.body.docType
+        };
+
+        const document = await Document.query().insert(newDocument);
+        if (!document) {
+          throw new Error('failed to upload');
+        }
+
+        req.flash('success', ['file submitted', `${req.file.filename}`]);
         return res.redirect('/student/upload');
       }
     });
@@ -35,14 +50,4 @@ const postUploadPage = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const download = (req: Request, res: Response, next: NextFunction) => {
-  res.download('/home/node/app/src/uploads/1638943968657_pdf document test.pdf', (err: any) => {
-    if (err) {
-      next(err);
-    } else {
-      console.log('OK FILE DOWNLOADED');
-    }
-  });
-};
-
-export default { getUploadPage, postUploadPage, download };
+export default { getUploadPage, postUploadPage };

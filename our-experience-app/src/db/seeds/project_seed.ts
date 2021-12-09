@@ -15,11 +15,12 @@ export async function seed(knex: Knex): Promise<void> {
   // Inserts seed entries
   const password = 'password';
   const salt = await bcrypt.genSalt(12);
-  const user = {
+  const student = {
     username: 'test',
-    password: await bcrypt.hash(password, salt)
+    password: await bcrypt.hash(password, salt),
+    role: 'Student'
   };
-  await knex('User').insert(user);
+  await knex('User').insert(student);
 
   await knex('Company').insert([{ name: 'A Thinking Ape' }, { name: 'EA Games' }, { name: 'Microsoft' }]);
 

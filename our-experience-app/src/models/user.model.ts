@@ -3,6 +3,11 @@ import tableNames from '../constants/tableNames';
 
 // User model.
 export class User extends Model {
+  id!: number;
+  username!: string;
+  password!: string;
+  role!: string;
+
   static get tableName() {
     return tableNames.user;
   }

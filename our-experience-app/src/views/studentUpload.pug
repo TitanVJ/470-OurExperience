@@ -5,14 +5,13 @@ block content
     h1= title 
 
     form(action="/student/upload" method='POST' enctype='multipart/form-data').mt-3.row
-
-      .col-sm-7.mb-3
-        <select class="form-select text-center" aria-label="Default select example">
-          <option selected>-- select --</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+      .col-sm-8.mb-3
+        select(class="form-select text-center" name='docType' aria-label="Default select example" required)
+          option(selected disabled value="") -- select filetype --
+          option(value="resume") Resume
+          option(value="cover-letter") Cover Letter
+          option(value="transcript") Transcript
+          option(value="sis") SIS
         
         label(for="formFile" class="form-label sfu-theme") Pdf File Submission
         input(class="form-control" name='pdfUpload' type="file" id="formFile" required)
