@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { Company } from '../models/company.model';
-import { JobPosting } from '../models/job_posting.model';
+import job_postings_controller from '../controllers/job_postings.controller';
 
 const router = express.Router();
 
@@ -9,16 +8,8 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.redirect('/career/postings');
 });
 
-router.get('/postings', async (req: Request, res: Response, next: NextFunction) => {
-  const job_posts = await Company.query().withGraphFetched('job_postings');
-  res.render('career_postings', { title: 'Current Job Postings', postings: job_posts });
-});
+router.get('/postings', job_postings_controller.get_all_jobs);
 
-router.get('/job/:id', async (req: Request, res: Response, next: NextFunction) => {
-  const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
-  // const company: any = await Company.query().findById( job.companyId ).select('name');
-  console.log(job);
-  res.render('job', { title: job.title, job: job, company: job.company });
-});
+router.get('/job/:id', job_postings_controller.job_details);
 
-export = router;
+export default router;
