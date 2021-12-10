@@ -2,8 +2,15 @@ body {
   /* padding: 50px; */
   /* font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif; */
 }
-/* change the link color */
-/* change the color of active or hovered links */
+
+#branding {
+  color: black;
+}
+
+.header {
+  padding-top: 20pt;
+  margin-bottom: -16pt;
+}
 
 .navbar-custom {
   background: #efeded;
@@ -20,7 +27,7 @@ body {
 }
 
 .sfu-theme {
-  color: #a6192e !important;
+  color: #a6192e;
 }
 
 a {

@@ -6,7 +6,7 @@ services:
     container_name: mysql_db
     restart: always
     ports:
-      - '3306:3306'
+      - '3307:3307'
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -24,6 +24,15 @@ services:
     ports:
       - 9000:8080
 
+  cas:
+    build:
+      context: ./cas_auth
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - "8443:8443"
+
   ts-node-express:
     build:
       context: ./our-experience-app
@@ -31,6 +40,7 @@ services:
       target: base
     depends_on:
       - mysql
+      - cas
     volumes:
       - ./our-experience-app/src:/home/node/app/src
     container_name: ts-node-express
@@ -39,3 +49,6 @@ services:
     ports:
       - '5000:5000'
     command: npm run dev
+    environment:
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+

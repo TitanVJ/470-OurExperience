@@ -4,7 +4,9 @@ WORKDIR /home/node/app
 
 COPY package*.json ./
 
-RUN npm i
+COPY patches ./patches
+
+RUN npm ci
 
 COPY . .
 
