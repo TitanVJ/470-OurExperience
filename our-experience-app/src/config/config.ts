@@ -1,8 +1,3 @@
-import dotenv from 'dotenv';
-import path from 'path';
-
-dotenv.config({ path: path.join(__dirname, '..', '..', '..', '.env') });
-
 const MYSQL_HOST = process.env.MYSQL_HOST || 'mysql';
 const MYSQL_PORT = +(process.env.MYSQL_PORT || 3306);
 const MYSQL_USER = process.env.MYSQL_USER || 'mysql';
@@ -24,9 +19,9 @@ export const server_config = {
 };
 
 export const session_config = {
-  secret            : process.env.SESSION_SECRET || 'super secret dev secret',
-  resave            : false,
-  saveUninitialized : true,
+  secret: process.env.SESSION_SECRET || 'super secret dev secret',
+  resave: false,
+  saveUninitialized: true,
   cookie: {
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -35,16 +30,16 @@ export const session_config = {
 };
 
 export const cas_config = {
-  cas_url         : 'https://cas:8443/cas',
-  service_url     : `http://localhost:${SERVER_PORT}`,
-  cas_version     : '3.0',
-  cas_port        : 8443,
-  renew           : false,
-  is_dev_mode     : process.env.CAS_DEV_MODE,
-  dev_mode_user   : '',
-  dev_mode_info   : {},
-  session_name    : 'cas_user',
-  session_info    : 'cas_userinfo',
-  destroy_session : false,
-  return_to       : `http://localhost:${SERVER_PORT}`
+  cas_url: 'https://cas:8443/cas',
+  service_url: `http://localhost:${SERVER_PORT}`,
+  cas_version: '3.0',
+  cas_port: 8443,
+  renew: false,
+  is_dev_mode: process.env.CAS_DEV_MODE === 'true' ? true : false,
+  dev_mode_user: 'test',
+  dev_mode_info: {},
+  session_name: 'cas_user',
+  session_info: 'cas_userinfo',
+  destroy_session: false,
+  return_to: `http://localhost:${SERVER_PORT}`
 };
