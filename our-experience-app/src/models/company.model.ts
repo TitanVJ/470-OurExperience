@@ -1,5 +1,10 @@
 import Model from '../db';
 
+export interface Company {
+  Id: number,
+  name: string
+}
+
 export class Company extends Model {
   static get tableName() {
     return 'Company';

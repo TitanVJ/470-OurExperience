@@ -15,8 +15,14 @@ const job_details = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Create
-const create_job = (req: Request, res: Response, next: NextFunction) => {
-
+const create_job = async (req: Request, res: Response, next: NextFunction) => {
+  const new_job = await JobPosting.query()
+    .insert({
+      companyId: req.params.companyId,
+      deadline: req.params.deadline,
+      description: req.params.description,
+      title: req.params.title
+    });
 };
 
 // Update

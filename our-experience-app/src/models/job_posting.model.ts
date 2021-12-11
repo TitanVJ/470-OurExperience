@@ -1,5 +1,13 @@
 import Model from '../db';
 
+export interface JobPosting {
+  Id: number,
+  companyId: string,
+  deadline: string,
+  description: string,
+  title: string
+}
+
 export class JobPosting extends Model {
   static get tableName() {
     return 'JobPosting';
