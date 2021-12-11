@@ -6,6 +6,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import middlewares from './middlewares/middlewares';
 import { cas_config, session_config } from './config/config';
+import { User } from './models/user.model';
 
 const CASAuthentication = require('node-cas-authentication');
 
@@ -24,6 +25,14 @@ app.set('view engine', 'pug');
 app.use(session(session_config));
 const cas = new CASAuthentication(cas_config);
 
+// save the user into req so that you can use through out the app
+// additionally save user to locals so that we rendered pages can use them
+app.use(cas.bounce, async (req, res, next) => {
+  req.user = await User.query().findOne({ username: req.session['cas_user'] });
+  res.locals.user = req.user;
+  next();
+});
+
 app.use(morgan('tiny'));
 
 const scriptSources = ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdn.datatables.net', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net/'];
@@ -31,22 +40,6 @@ const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.js
 const connectSources = ["'self'"];
 const imgSrc = ['w3.org', 'upload.wikimedia.org'];
 const fontSrc = ['fonts.cdnfonts.com'];
-
-const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
-
-const sessionConfig = {
-  name: 'session',
-  secret,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-    maxAge: 1000 * 60 * 60 * 24 * 7
-  }
-};
-
-app.use(session(sessionConfig));
 app.use(flash());
 
 app.use(
