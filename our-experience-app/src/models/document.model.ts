@@ -21,6 +21,18 @@ export class Document extends Model {
           from: 'Document.userId',
           to: 'User.id'
         }
+      },
+      applications_applied: {
+        relation: Model.ManyToManyRelation,
+        modelClass: `${__dirname}/document.model`,
+        join: {
+          from: 'Document.id',
+          through: {
+            from: 'ApplicationDocument.documentId',
+            to: 'ApplicationDocument.applicationId'
+          },
+          to: 'JobApplication.id'
+        }
       }
     };
   }
