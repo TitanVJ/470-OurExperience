@@ -25,7 +25,8 @@ block content
       for application in applications 
         tr 
           td #{ application.id }
-          td #{ application.posting.title }
+          td 
+            a(href=`/career/job/${application.posting.id}`) #{ application.posting.title }
           td #{ application.posting.company.name }
           td #{ application.status }
           td #{ DateTime.fromJSDate(application.submittedAt).toLocaleString(DateTime.DATETIME_MED) }
