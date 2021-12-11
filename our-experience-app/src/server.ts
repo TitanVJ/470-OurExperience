@@ -13,7 +13,8 @@ const CASAuthentication = require('node-cas-authentication');
 const indexRouter = require('./routes/index');
 const studentRouter = require('./routes/student');
 const companyRouter = require('./routes/company');
-const careerRouter = require('./routes/career');
+import careerRouter from './routes/career';
+import adminRouter from './routes/admin';
 
 const app = express();
 
@@ -73,6 +74,7 @@ app.use('/', cas.bounce, indexRouter);
 app.use('/student', cas.bounce, studentRouter);
 // app.use('/company', companyRouter);
 app.use('/career', cas.bounce, careerRouter);
+app.use('/admin', cas.bounce, adminRouter);
 
 // catch 404's and handle erros
 app.use(middlewares.notFound);
