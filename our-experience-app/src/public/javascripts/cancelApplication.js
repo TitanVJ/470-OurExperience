@@ -1,7 +1,8 @@
 const cancelApplication = (applicationId) => {
   $.ajax({
     type: 'DELETE',
-    url: `applications/${applicationId}`
+    url: `applications/${applicationId}`,
+    success: () => { location.reload() }
   });
 }
 

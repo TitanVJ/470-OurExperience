@@ -3,12 +3,19 @@ import { JobApplication } from '../models/job_application.model';
 const { DateTime } = require('luxon');
 
 const getApplicationListByUserId = async (req: Request, res: Response, next: NextFunction) => {
-  const applications = await JobApplication.query().findByIds([1]).withGraphJoined('posting.[company]');
+  const HARD_CODED_ID = 1;
+  const applications = await JobApplication.query().findByIds([HARD_CODED_ID]).where('isDeleted', '=', '0').withGraphJoined('posting.[company]');
   res.render('application_list', { title: 'My Job Applications', applications: applications, DateTime: DateTime });
 };
 
 const deleteApplicationById = async (req: Request, res: Response, next: NextFunction) => {
-  await JobApplication.query().findById(1).patch({ isDeleted: true });
+  const applicationId = +req.params.id;
+  if (!applicationId) {
+    res.sendStatus(400);
+    return;
+  }
+  await JobApplication.query().findById(applicationId).patch({ isDeleted: true });
+  res.sendStatus(204);
 };
 
 export default { getApplicationListByUserId, deleteApplicationById };
