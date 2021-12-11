@@ -1,4 +1,4 @@
-extends layout
+extends admin_base
 
 block content
   h1= title
@@ -6,5 +6,16 @@ block content
   |
   p
     a( href='/admin/jobs') Manage Job Postings
+    | #{|}
     a( href='/admin/companies') Manage Companies
+
+  section#stats
+    //- shows stuff like # of companies, job posts, current users, applications submited
+    //- colourful gradient rounded corner rectangles like the apple info graphics
+
+  section#actions
+    a( href='/admin/jobs') Manage Job Postings
+    |
+    a( href='/admin/companies') Manage Companies
+
 
