@@ -10,25 +10,25 @@ block content
     form(action=`/career/job/${job.id}/apply` method='POST').mt-3.row
       .col-sm-8.mb-3
         label(for="formFile" class="form-label sfu-theme") Resume*:
-        select(class="form-select text-center" id='formFile' name='resume' required)
+        select(class="form-select text-center" id='formFile' name='resumeId' required)
           option(selected disabled value="") -- select filetype --
-            each document in formTypes.resume 
-              option(value=document.id) #{document.filepath}
+          each document in formTypes.resume 
+            option(value=document.id) #{document.filepath}
         label(for="coverLetterFile" class="form-label sfu-theme") Cover Letter:
-        select(class="form-select text-center" id='coverLetterFile' name='coverLetter')
+        select(class="form-select text-center" id='coverLetterFile' name='coverLetterId')
           option(selected disabled value="") -- select filetype --
-            each document in formTypes.coverLetter
-              option(value=document.id) #{document.filepath}
+          each document in formTypes.coverLetter
+            option(value=document.id) #{document.filepath}
         label(for="transcriptFile" class="form-label sfu-theme") Transcript:
-        select(class="form-select text-center" id='transcriptFile' name='transcript')
+        select(class="form-select text-center" id='transcriptFile' name='transcriptId')
           option(selected disabled value="") -- select filetype --
-            each document in formTypes.transcript
-              option(value=document.id) #{document.filepath}
+          each document in formTypes.transcript
+            option(value=document.id) #{document.filepath}
         label(for="sisFile" class="form-label sfu-theme") Sis:
-        select(class="form-select text-center" id='sisFile' name='sis')
+        select(class="form-select text-center" id='sisFile' name='sisId')
           option(selected disabled value="") -- select filetype --
-            each document in formTypes.sis
-              option(value=document.id) #{document.filepath}
+          each document in formTypes.sis
+            option(value=document.id) #{document.filepath}
         
       .mb-3
         button(type='submit').btn.btn-primary Submit
