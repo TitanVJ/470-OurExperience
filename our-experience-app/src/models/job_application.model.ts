@@ -1,6 +1,12 @@
 import Model from '../db';
 
 export class JobApplication extends Model {
+  id!: number;
+  postingId!: number;
+  userId!: number;
+  status!: string;
+  isDeleted!: boolean;
+
   static get tableName() {
     return 'JobApplication';
   }

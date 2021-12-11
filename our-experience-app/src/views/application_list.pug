@@ -22,6 +22,7 @@ block content
       th Status
       th Application Submitted At 
       th Application Deadline
+      th
     tbody 
       for application in applications 
         tr 
@@ -32,3 +33,7 @@ block content
           td #{ application.status }
           td #{ DateTime.fromJSDate(application.submittedAt).toLocaleString(DateTime.DATETIME_MED) }
           td #{ DateTime.fromJSDate(application.posting.deadline).toLocaleString(DateTime.DATETIME_MED) }
+          td 
+            button(class='cancel-application-button' data-application-id=application.id) Cancel Application
+
+  script(src='/javascripts/cancelApplication.js')

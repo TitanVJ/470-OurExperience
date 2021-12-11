@@ -7,4 +7,8 @@ const getApplicationListByUserId = async (req: Request, res: Response, next: Nex
   res.render('application_list', { title: 'My Job Applications', applications: applications, DateTime: DateTime });
 };
 
-export default { getApplicationListByUserId };
+const deleteApplicationById = async (req: Request, res: Response, next: NextFunction) => {
+  await JobApplication.query().findById(1).patch({ isDeleted: true });
+};
+
+export default { getApplicationListByUserId, deleteApplicationById };
