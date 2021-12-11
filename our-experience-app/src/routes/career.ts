@@ -21,4 +21,9 @@ router.get('/job/:id', async (req: Request, res: Response, next: NextFunction) =
   res.render('job', { title: job.title, job: job, company: job.company });
 });
 
+router.get('/job/:id/apply', async (req: Request, res: Response, next: NextFunction) => {
+  const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
+  res.render('application', { title: `${job.title} - ${job.company.name}` });
+});
+
 export = router;
