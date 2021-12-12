@@ -28,7 +28,8 @@ block content
             td #{doc.filename}
             td #{ doc.documentType }
             td 
-              a(href="/")
+              a(href=`/documents/${doc.id}/download`)
                 button download 
-              a(href="/")
-                button delete
+              button(class='delete-document-button' data-document-id=doc.id) Delete
+
+    script(src='/javascripts/deleteDocument.js')
