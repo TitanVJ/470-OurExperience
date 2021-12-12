@@ -1,4 +1,4 @@
-FROM node:16.10-alpine as base
+FROM node:latest as base
 
 WORKDIR /home/node/app
 
@@ -9,6 +9,8 @@ COPY patches ./patches
 RUN npm ci
 
 COPY . .
+
+RUN chmod +x wait.sh
 
 FROM base as production
 
