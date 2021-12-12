@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -21,7 +22,6 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 app.use(session(session_config));
 const cas = new CASAuthentication(cas_config);
 

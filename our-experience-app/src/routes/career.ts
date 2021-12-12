@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { Company } from '../models/company.model';
 import { JobPosting } from '../models/job_posting.model';
+import careerController from '../controllers/careerController';
 
 const router = express.Router();
 
@@ -20,5 +21,9 @@ router.get('/job/:id', async (req: Request, res: Response, next: NextFunction) =
   console.log(job);
   res.render('job', { title: job.title, job: job, company: job.company });
 });
+
+router.get('/job/:id/apply', careerController.getJobApply);
+
+router.post('/job/:id/apply', careerController.postJobApply);
 
 export = router;

@@ -23,6 +23,8 @@ block content
       tr.value
         td #{ job.description }
 
-    footer
+    footer.container.d-flex
       a(href="/career") Back to Job Postings |
       a(href="/") Back to Dashboard
+      a.ms-auto(href=`/career/job/${job.id}/apply`)
+          button apply

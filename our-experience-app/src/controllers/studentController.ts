@@ -28,9 +28,8 @@ const postUploadPage = async (req: Request, res: Response, next: NextFunction) =
         const filepath = req.file.path;
         const mimetype = req.file.mimetype;
 
-        const HARD_CODED_ID = 1; // TODO: change to currently logged in user
         const newDocument = {
-          userId: HARD_CODED_ID,
+          userId: req.user.id,
           filepath: req.file.path,
           mimeType: req.file.mimetype,
           documentType: req.body.docType
