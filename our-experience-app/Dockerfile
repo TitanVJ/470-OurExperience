@@ -10,8 +10,6 @@ RUN npm ci
 
 COPY . .
 
-RUN chmod +x wait.sh
-
 FROM base as production
 
 ENV NODE_PATH=./build
