@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf ./build",
     "build": "npm run clean && tsc -p . && npm run copyfiles",
-    "copyfiles": "copyfiles -e './src/node_modules/**/*' ./src/**/*.html ./src/**/*.css ./src/**/*.pug ./build",
+    "copyfiles": "copyfiles -e './src/node_modules/**/*' ./src/**/*.html ./src/**/*.js ./src/**/**/*.js ./src/**/*.css ./src/**/*.pug  ./src/**/**/*.pug ./build",
     "start": "NODE_PATH=./build node build/src/app.js",
     "dev": "nodemon src/app.ts",
     "test": "jest",
