@@ -7,9 +7,8 @@
     "clean": "rm -rf ./build",
     "build": "npm run clean && tsc -p . && npm run copyfiles",
     "copyfiles": "copyfiles -e './src/node_modules/**/*' ./src/**/*.html ./src/**/*.css ./src/**/*.pug ./build",
-    "start": "NODE_PATH=./build node build/app.js",
-    "migrateSeed": "./node_modules/.bin/knex migrate:latest && ./node_modules/.bin/knex seed:run",
-    "dev": "nodemon src/app.ts && npm run migrateSeed",
+    "start": "NODE_PATH=./build node build/src/app.js",
+    "dev": "nodemon src/app.ts",
     "test": "jest",
     "postinstall": "patch-package"
   },

@@ -48,8 +48,14 @@ services:
       - '5000'
     ports:
       - '5000:5000'
-      # 'npm', 'run', 'dev', '&&', './node_modules/.bin/knex migrate:latest', '&&', './node_modules/.bin/knex seed:run']
-    command: ./wait.sh mysql:3006 -- npm run dev
-    #['./wait.sh', 'mysql:3006', '--', 'npm', 'run', 'dev']
     environment:
       NODE_TLS_REJECT_UNAUTHORIZED: 0
+    command: npm run dev
+
+  web-nginx:
+    container_name: web-nginx
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - '8080:80'

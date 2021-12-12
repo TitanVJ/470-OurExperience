@@ -3,5 +3,17 @@ version: '3.8'
 services:
   ts-node-express:
     build:
+      context: ./our-experience-app
       target: production
-    command: node build/app.js
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - cas
+    volumes:
+      - ./our-experience-app:/home/node/app
+    container_name: ts-node-express
+    ports:
+      - '5000:5000'
+    environment:
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+    command: npm run start
