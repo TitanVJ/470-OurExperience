@@ -6,7 +6,7 @@ import { JobPosting } from '../models/job_posting.model';
 
 const getJobApply = async (req: Request, res: Response, next: NextFunction) => {
   const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
-  const userDocuments: Document[] = await Document.query().where('userId', req.user.id);
+  const userDocuments: Document[] = await Document.query().where('userId', req.user.id).where('isDeleted', false);
   const formTypes: any = {
     resume: [],
     coverLetter: [],

@@ -1,0 +1,34 @@
+extends layout 
+
+append style 
+  link(rel='stylesheet' type='text/css' href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css")
+  link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
+
+append scripts 
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js")
+  script(src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js")
+  script.
+    $(document).ready( function () {
+      $('#documents').DataTable();
+    });
+
+block content 
+  h1.text-center= title
+  .container
+    table#documents.display
+      thead 
+        th Document Id
+        th Document Name
+        th Type
+        th actions
+      tbody 
+        for doc in documents 
+          tr 
+            td #{doc.id}
+            td #{doc.filename}
+            td #{ doc.documentType }
+            td 
+              a(href="/")
+                button download 
+              a(href="/")
+                button delete

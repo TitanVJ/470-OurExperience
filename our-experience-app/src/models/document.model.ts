@@ -6,6 +6,8 @@ export class Document extends Model {
   filepath!: string;
   mimeType!: string;
   documentType!: string;
+  filename!: string;
+  isDeleted!: boolean;
   createdAt?: string;
 
   static get tableName() {

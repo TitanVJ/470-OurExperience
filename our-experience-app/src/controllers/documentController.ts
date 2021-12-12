@@ -1,7 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
+import { Document } from '../models/document.model';
 
-const getListDocuments = (req: Request, res: Response, next: NextFunction) => {
-  res.send('route');
+const getListDocumentsByUserId = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const documents = await Document.query().where('userId', req.user.id).where('isDeleted', false);
+    res.render('document_list', { title: 'Documents', documents: documents });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const getDownloadById = (req: Request, res: Response, next: NextFunction) => {
@@ -9,6 +15,6 @@ const getDownloadById = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export default {
-  getListDocuments,
+  getListDocumentsByUserId,
   getDownloadById
 };

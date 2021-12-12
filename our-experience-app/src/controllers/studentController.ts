@@ -32,7 +32,8 @@ const postUploadPage = async (req: Request, res: Response, next: NextFunction) =
           userId: req.user.id,
           filepath: req.file.path,
           mimeType: req.file.mimetype,
-          documentType: req.body.docType
+          documentType: req.body.docType,
+          filename: req.file.filename
         };
 
         const document = await Document.query().insert(newDocument);
