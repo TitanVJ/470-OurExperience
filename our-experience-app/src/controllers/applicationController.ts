@@ -8,8 +8,12 @@ const getApplicationListByUserId = async (req: Request, res: Response, next: Nex
     res.sendStatus(401);
     return;
   }
-  const applications = await JobApplication.query().where('userId', '=', userId).where('isDeleted', '=', '0').withGraphJoined('posting.[company]');
-  res.render('application_list', { title: 'My Job Applications', applications: applications, DateTime: DateTime, applicationDeadlinePassed: applicationDeadlinePassed });
+  try {
+    const applications = await JobApplication.query().where('userId', '=', userId).where('isDeleted', '=', '0').withGraphJoined('posting.[company]');
+    res.render('application_list', { title: 'My Job Applications', applications: applications, DateTime: DateTime, applicationDeadlinePassed: applicationDeadlinePassed });
+  } catch (error: any) {
+    next(error);
+  }
 };
 
 const deleteApplicationById = async (req: Request, res: Response, next: NextFunction) => {
@@ -18,8 +22,12 @@ const deleteApplicationById = async (req: Request, res: Response, next: NextFunc
     res.sendStatus(400);
     return;
   }
-  await JobApplication.query().findById(applicationId).patch({ isDeleted: true });
-  res.sendStatus(204);
+  try {
+    await JobApplication.query().findById(applicationId).patch({ isDeleted: true });
+    res.sendStatus(204);
+  } catch (error: any) {
+    next(error);
+  }
 };
 
 const applicationDeadlinePassed = (deadline: any): boolean => {
