@@ -3,7 +3,8 @@ export class JobApplication extends Model {
   id!: number;
   postingId!: number;
   userId!: number;
-  status?: string;
+  status!: string;
+  isDeleted!: boolean;
   submittedAt?: string;
 
   static get tableName() {
@@ -22,6 +23,14 @@ export class JobApplication extends Model {
             to: 'ApplicationDocument.documentId'
           },
           to: 'Document.id'
+        }
+      },
+      posting: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: `${__dirname}/job_posting.model`,
+        join: {
+          from: 'JobApplication.postingId',
+          to: 'JobPosting.id'
         }
       }
     };
