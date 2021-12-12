@@ -16,7 +16,6 @@ block content
   h1= title
   table#applications.display
     thead 
-      th Id
       th Job Title
       th Organization 
       th Status
@@ -26,7 +25,6 @@ block content
     tbody 
       for application in applications 
         tr 
-          td #{ application.id }
           td 
             a(href=`/career/job/${application.posting.id}`) #{ application.posting.title }
           td #{ application.posting.company.name }
