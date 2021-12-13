@@ -4,6 +4,8 @@ import bcrypt from 'bcryptjs';
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex.raw('SET FOREIGN_KEY_CHECKS=0;');
+  await knex('UserEvent').truncate();
+  await knex('Event').truncate();
   await knex('ApplicationDocument').truncate();
   await knex('Document').truncate();
   await knex('JobApplication').truncate();
@@ -58,5 +60,16 @@ export async function seed(knex: Knex): Promise<void> {
     { postingId: 1, userId: 1, status: 'submitted' },
     { postingId: 1, userId: 2, status: 'submitted' },
     { postingId: 2, userId: 1, status: 'submitted', submittedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30 - 86400000) }
+  ]);
+
+  await knex('Event').insert([
+    { title: 'Co-op Resume Workshop', location: '8888 University Dr, Burnaby, BC V5A 1S6', date: new Date(), capacity: 30, description: 'Mandatory Resume workshop for prospective Co-op students' },
+    {
+      title: 'Co-op Cover Letter Workshop',
+      location: '8888 University Dr, Burnaby, BC V5A 1S6',
+      date: new Date(),
+      capacity: 25,
+      description: 'Mandatory Cover Letter workshop for prospective Co-op students'
+    }
   ]);
 }
