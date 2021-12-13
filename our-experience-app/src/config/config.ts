@@ -34,6 +34,13 @@ export const session_config = {
   }
 };
 
+declare module "express-session" {
+  interface Session {
+    cas_user: string,
+    cas_userinfo: any
+  }
+}
+
 export const cas_config = {
   cas_url         : 'https://cas:8443/cas',
   service_url     : `http://localhost:${SERVER_PORT}`,
@@ -41,8 +48,10 @@ export const cas_config = {
   cas_port        : 8443,
   renew           : false,
   is_dev_mode     : process.env.CAS_DEV_MODE,
-  dev_mode_user   : process.env.CAS_DEV_MODE,
-  dev_mode_info   : {},
+  dev_mode_user   : process.env.CAS_DEV_USER,
+  dev_mode_info   : {
+    role: 'admin'
+  },
   session_name    : 'cas_user',
   session_info    : 'cas_userinfo',
   destroy_session : false,

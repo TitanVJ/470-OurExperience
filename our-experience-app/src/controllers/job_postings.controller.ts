@@ -2,11 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import { Company } from '../models/company.model';
 import { JobPosting } from '../models/job_posting.model';
 
-
 // Read
 const get_all_jobs = async (req: Request, res: Response, next: NextFunction) => {
+  let role = req.session.cas_userinfo.role;
   const job_posts = await Company.query().withGraphFetched('job_postings');
-  res.render('career_postings', { title: 'Current Job Postings', postings: job_posts });
+  res.render((role === 'admin')? 'admin_jobs': 'career_postings', { title: 'Current Job Postings', postings: job_posts });
 };
 
 const job_details = async (req: Request, res: Response, next: NextFunction) => {
