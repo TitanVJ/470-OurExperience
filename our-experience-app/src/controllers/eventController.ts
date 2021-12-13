@@ -16,6 +16,12 @@ const getEvent = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getCalendarByUserId = (req: Request, res: Response, next: NextFunction) => {};
+const getCalendarByUserId = (req: Request, res: Response, next: NextFunction) => {
+  const events = [
+    { title: 'Test Event 1', start: new Date() },
+    { title: 'Test Event 2', start: new Date('Dec 14, 2021') }
+  ];
+  res.render('calendar', { title: 'My Calendar', events: events });
+};
 
 export default { getEventList, getEvent, getCalendarByUserId };
