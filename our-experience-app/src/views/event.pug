@@ -24,8 +24,8 @@ block content
       dt Capacity 
       dd #{ event.attendeeCount } / #{ event.capacity }
 
-    if (event.date > Date.now() && event.attendeedCount < event.capacity)
-      if (!isUserRegistered)
+    if (event.date > new Date())
+      if (!isUserRegistered && event.attendeeCount < event.capacity)
         button(class='registration-button' data-event-id=event.id data-is-registered=isUserRegistered) Register
-      else 
+      else if (isUserRegistered) 
         button(class='registration-button' data-event-id=event.id data-is-registered=isUserRegistered) Unregister

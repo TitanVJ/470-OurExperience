@@ -20,7 +20,11 @@ const getEvent = async (req: Request, res: Response, next: NextFunction) => {
   }
   try {
     const event = await Event.query().findById(eventId).select('Event.*', Event.relatedQuery('attendees').count().as('attendeeCount'));
-    const isUserRegistered = (await UserEvent.query().where('eventId', '=', eventId).andWhere('userId', '=', 1)).length;
+    const isUserRegistered = (
+      await UserEvent.query()
+        .where('eventId', '=', eventId)
+        .andWhere('userId', '=', +req.user.id)
+    ).length;
     if (!event) throw new Error();
     res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered, DateTime: DateTime });
   } catch (error: any) {
@@ -35,8 +39,10 @@ const registerForEvent = async (req: Request, res: Response, next: NextFunction)
     return;
   }
   try {
+    const eventInfo: any = await Event.query().findById(eventId).select('Event.capacity', Event.relatedQuery('attendees').count().as('attendeeCount'));
+    if (eventInfo.attendeeCount >= eventInfo.capacity) throw new Error('Event registration cap already hit!');
     await validateEventHasNotPassed(eventId);
-    await UserEvent.query().insert({ eventId: eventId, userId: 1 });
+    await UserEvent.query().insert({ eventId: eventId, userId: +req.user.id });
     res.sendStatus(201);
   } catch (error: any) {
     console.log('Error:', error);
@@ -52,7 +58,10 @@ const unregisterFromEvent = async (req: Request, res: Response, next: NextFuncti
   }
   try {
     await validateEventHasNotPassed(eventId);
-    await UserEvent.query().delete().where('eventId', '=', eventId).andWhere('userId', '=', 1);
+    await UserEvent.query()
+      .delete()
+      .where('eventId', '=', eventId)
+      .andWhere('userId', '=', +req.user.id);
     res.sendStatus(204);
   } catch (error: any) {
     console.log('Error:', error);
@@ -62,7 +71,9 @@ const unregisterFromEvent = async (req: Request, res: Response, next: NextFuncti
 
 const getCalendarByUserId = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userEvents: any = await UserEvent.query().withGraphFetched('event').where('userId', '=', 1);
+    const userEvents: any = await UserEvent.query()
+      .withGraphFetched('event')
+      .where('userId', '=', +req.user.id);
     const events = userEvents.map((userEvent: any) => {
       return {
         id: userEvent.event.id,

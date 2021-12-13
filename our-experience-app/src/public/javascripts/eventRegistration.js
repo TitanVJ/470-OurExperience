@@ -3,7 +3,7 @@ const registerForEvent = (eventId) => {
     type: 'POST',
     url: `/events/${eventId}`,
     success: () => { location.reload() },
-    error: () => alert('Could not register for event') 
+    error: () => alert('Could not register for event')
   });
 }
 

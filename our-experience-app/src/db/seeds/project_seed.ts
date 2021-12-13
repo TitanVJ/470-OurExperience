@@ -63,7 +63,13 @@ export async function seed(knex: Knex): Promise<void> {
   ]);
 
   await knex('Event').insert([
-    { title: 'Co-op Resume Workshop', location: '8888 University Dr, Burnaby, BC V5A 1S6', date: new Date(), capacity: 30, description: 'Mandatory Resume workshop for prospective Co-op students' },
+    {
+      title: 'Co-op Resume Workshop',
+      location: '8888 University Dr, Burnaby, BC V5A 1S6',
+      date: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 - 86400000),
+      capacity: 1,
+      description: 'Mandatory Resume workshop for prospective Co-op students'
+    },
     {
       title: 'Co-op Cover Letter Workshop',
       location: '8888 University Dr, Burnaby, BC V5A 1S6',
