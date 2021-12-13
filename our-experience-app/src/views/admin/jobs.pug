@@ -1,6 +1,6 @@
-extends admin_base
+extends base
 
-include datatables
+include ../datatables
 
 append scripts
   script.
@@ -24,7 +24,7 @@ block content
       tbody
         for job in job_posts
           tr
-            td(scope='row') #{ job.id }
+            td #{ job.id }
             td
               a( href='/career/job/'+job.id) #{ job.title }
             td #{ job.company.name }

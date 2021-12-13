@@ -9,7 +9,7 @@ const get_all_jobs = async (req: Request, res: Response, next: NextFunction) => 
   const job_posts = await JobPosting.query().withGraphFetched('company');
   if(role == 'admin') {
     const companies = await Company.query();
-    res.render('admin_jobs', { title: 'Manage Job Posts', job_posts: job_posts, companies: companies});
+    res.render('admin/jobs', { title: 'Manage Job Posts', job_posts: job_posts, companies: companies});
 
   }else{
     res.render('career_postings', { title: 'Current Job Postings', postings: job_posts });
