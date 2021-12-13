@@ -22,7 +22,7 @@ block content
       dd #{ event.location }
 
       dt Capacity 
-      dd #{ event.capacity }
+      dd #{ event.attendeeCount } / #{ event.capacity }
 
     if (!isUserRegistered)
       button(class='registration-button' data-event-id=event.id data-is-registered=isUserRegistered) Register
