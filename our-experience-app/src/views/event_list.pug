@@ -23,7 +23,8 @@ block content
     tbody 
       for event in events 
         tr 
-          td #{ event.title }
+          td 
+            a(href=`/events/${event.id}`) #{ event.title }
           td #{ event.date }
           td #{ event.location }
           td #{ event.capacity }

@@ -3,6 +3,10 @@ extends layout
 append style 
   link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
 
+append scripts 
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js")
+  script(src="/javascripts/eventRegistration.js")
+
 block content 
   .container 
     h1 Event: #{ event.title }
@@ -19,3 +23,5 @@ block content
 
       dt Capacity 
       dd #{ event.capacity }
+
+    button(class='registration-button' data-event-id=event.id) Register
