@@ -4,10 +4,9 @@ import { JobPosting } from '../models/job_posting.model';
 
 // Read
 const get_all_jobs = async (req: Request, res: Response, next: NextFunction) => {
-  const role = req.session.cas_userinfo.role;
-  // const job_posts = await Company.query().withGraphFetched('job_postings');
   const job_posts = await JobPosting.query().withGraphFetched('company');
-  if(role == 'admin') {
+
+  if(req.session.cas_userinfo.role == 'Staff') {
     const companies = await Company.query();
     res.render('admin/jobs', { title: 'Manage Job Posts', job_posts: job_posts, companies: companies});
 
@@ -19,8 +18,13 @@ const get_all_jobs = async (req: Request, res: Response, next: NextFunction) => 
 
 const job_details = async (req: Request, res: Response, next: NextFunction) => {
   const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
-  console.log(job);
-  res.render('job', { title: job.title, job: job, company: job.company });
+  const payload = { title: job.title, job: job, company: job.company };
+
+  if(req.session.cas_userinfo.role == 'Staff') {
+    res.render('admin/job', payload);
+  }else{
+    res.render('job', payload);
+  }
 };
 
 const job_data = async (req: Request, res: Response, next: NextFunction) => {

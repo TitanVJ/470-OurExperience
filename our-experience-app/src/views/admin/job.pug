@@ -1,0 +1,28 @@
+extends base
+
+append style
+    link(rel='stylesheet' type='text/css' href="/stylesheets/job.css")
+    link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
+    link(rel='stylesheet' type='text/css' href="http://fonts.cdnfonts.com/css/habibi")
+block content
+  section.content#wrapper
+    h1= title
+    table(border=1)
+      tr.label
+        td Organization
+      tr.value
+        td #{ company.name }
+
+      tr.label
+        td Deadline
+      tr.value
+        td #{ job.deadline }
+
+      tr.label
+        td Description
+      tr.value
+        td #{ job.description }
+
+    footer
+      a(href="/admin/jobs") Back to Job Postings |
+      a(href="/admin") Back to Dashboard

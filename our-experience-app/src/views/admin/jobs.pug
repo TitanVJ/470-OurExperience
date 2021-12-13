@@ -29,7 +29,7 @@ block content
           tr
             td #{ job.id }
             td
-              a( href='/career/job/'+job.id) #{ job.title }
+              a( href='/admin/job/'+job.id) #{ job.title }
             td #{ job.company.name }
             td
               a.btn.btn-primary( role='button' data-bs-toggle='modal' data-bs-target='#update-modal' job_id=job.id) Edit
