@@ -1,6 +1,9 @@
 import Model from '../db';
 
 export class Event extends Model {
+  id!: number;
+  title!: string;
+
   static get tableName() {
     return 'Event';
   }

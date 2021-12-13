@@ -11,7 +11,7 @@ const getEvent = async (req: Request, res: Response, next: NextFunction) => {
   const eventId = +req.params.id;
   const event = await Event.query().findById(eventId);
   if (event) {
-    res.render('event', { event: event });
+    res.render('event', { title: event.title, event: event });
   } else {
     next();
   }
@@ -19,13 +19,22 @@ const getEvent = async (req: Request, res: Response, next: NextFunction) => {
 
 const registerForEvent = async (req: Request, res: Response, next: NextFunction) => {
   const eventId = +req.params.id;
-  await UserEvent.query().insert({ eventId: eventId, userId: 1 });
-  res.sendStatus(201);
+  if (!eventId) {
+    res.sendStatus(400);
+    return;
+  }
+  try {
+    await UserEvent.query().insert({ eventId: eventId, userId: 1 });
+    res.sendStatus(201);
+  } catch (error: any) {
+    console.log('ERROR:', error);
+    next();
+  }
 };
 
 const getCalendarByUserId = (req: Request, res: Response, next: NextFunction) => {
   const events = [
-    { title: 'Test Event 1', start: new Date(), url: '/events/1' },
+    { title: 'Test Event 1', start: new Date('Dec 13, 2021'), url: '/events/1' },
     { title: 'Test Event 2', start: new Date('Dec 14, 2021'), url: '/events/1' }
   ];
   res.render('calendar', { title: 'My Calendar', events: events });
