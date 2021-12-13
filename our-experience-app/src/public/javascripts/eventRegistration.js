@@ -2,7 +2,8 @@ const registerForEvent = (eventId) => {
   $.ajax({
     type: 'POST',
     url: `/events/${eventId}`,
-    success: () => { location.reload() }
+    success: () => { location.reload() },
+    error: () => alert('Could not register for event') 
   });
 }
 
@@ -10,7 +11,8 @@ const unregisterForEvent = (eventId) => {
   $.ajax({
     type: 'DELETE',
     url: `/events/${eventId}`,
-    success: () => { location.reload() }
+    success: () => { location.reload() },
+    error: () => alert('Could not unregister from event')
   });
 }
 

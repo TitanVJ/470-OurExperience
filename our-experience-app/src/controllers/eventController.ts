@@ -35,9 +35,11 @@ const registerForEvent = async (req: Request, res: Response, next: NextFunction)
     return;
   }
   try {
+    await validateEventHasNotPassed(eventId);
     await UserEvent.query().insert({ eventId: eventId, userId: 1 });
     res.sendStatus(201);
   } catch (error: any) {
+    console.log('Error:', error);
     next();
   }
 };
@@ -49,9 +51,11 @@ const unregisterFromEvent = async (req: Request, res: Response, next: NextFuncti
     return;
   }
   try {
+    await validateEventHasNotPassed(eventId);
     await UserEvent.query().delete().where('eventId', '=', eventId).andWhere('userId', '=', 1);
     res.sendStatus(204);
   } catch (error: any) {
+    console.log('Error:', error);
     next();
   }
 };
@@ -70,6 +74,13 @@ const getCalendarByUserId = async (req: Request, res: Response, next: NextFuncti
     res.render('calendar', { title: 'My Calendar', events: events });
   } catch (error: any) {
     next();
+  }
+};
+
+const validateEventHasNotPassed = async (eventId: number) => {
+  const event: any = await Event.query().findById(eventId);
+  if (event.date < Date.now()) {
+    throw new Error('Event date has passed');
   }
 };
 
