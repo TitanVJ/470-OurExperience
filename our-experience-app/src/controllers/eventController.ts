@@ -4,16 +4,25 @@ import { UserEvent } from '../models/user_event.model';
 
 const getEventList = async (req: Request, res: Response, next: NextFunction) => {
   const events = await Event.query();
-  res.render('event_list', { title: 'Events', events: events });
+  try {
+    res.render('event_list', { title: 'Events', events: events });
+  } catch (error: any) {
+    next();
+  }
 };
 
 const getEvent = async (req: Request, res: Response, next: NextFunction) => {
   const eventId = +req.params.id;
-  const event = await Event.query().findById(eventId);
-  const isUserRegistered = (await UserEvent.query().where('eventId', '=', eventId).andWhere('userId', '=', 1)).length;
-  if (event) {
+  if (!eventId) {
+    res.sendStatus(400);
+    return;
+  }
+  try {
+    const event = await Event.query().findById(eventId);
+    const isUserRegistered = (await UserEvent.query().where('eventId', '=', eventId).andWhere('userId', '=', 1)).length;
+    if (!event) throw new Error();
     res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered });
-  } else {
+  } catch (error: any) {
     next();
   }
 };
@@ -46,12 +55,21 @@ const unregisterFromEvent = async (req: Request, res: Response, next: NextFuncti
   }
 };
 
-const getCalendarByUserId = (req: Request, res: Response, next: NextFunction) => {
-  const events = [
-    { title: 'Test Event 1', start: new Date('Dec 13, 2021'), url: '/events/1' },
-    { title: 'Test Event 2', start: new Date('Dec 14, 2021'), url: '/events/1' }
-  ];
-  res.render('calendar', { title: 'My Calendar', events: events });
+const getCalendarByUserId = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userEvents: any = await UserEvent.query().withGraphFetched('event').where('userId', '=', 1);
+    const events = userEvents.map((userEvent: any) => {
+      return {
+        id: userEvent.event.id,
+        title: userEvent.event.title,
+        start: userEvent.event.date,
+        url: `/events/${userEvent.event.id}`
+      };
+    });
+    res.render('calendar', { title: 'My Calendar', events: events });
+  } catch (error: any) {
+    next();
+  }
 };
 
 export default { getEventList, getEvent, registerForEvent, unregisterFromEvent, getCalendarByUserId };
