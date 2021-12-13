@@ -16,7 +16,7 @@ block content
       dd #{ event.description }
 
       dt Date 
-      dd #{ event.date }
+      dd #{ DateTime.fromJSDate(event.date).toLocaleString(DateTime.DATETIME_MED) }
 
       dt Location 
       dd #{ event.location }

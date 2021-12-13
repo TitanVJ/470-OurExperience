@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { Event } from '../models/event.model';
 import { UserEvent } from '../models/user_event.model';
+const { DateTime } = require('luxon');
 
 const getEventList = async (req: Request, res: Response, next: NextFunction) => {
   const events = await Event.query();
   try {
-    res.render('event_list', { title: 'Events', events: events });
+    res.render('event_list', { title: 'Events', events: events, DateTime: DateTime });
   } catch (error: any) {
     next();
   }
@@ -21,7 +22,7 @@ const getEvent = async (req: Request, res: Response, next: NextFunction) => {
     const event = await Event.query().findById(eventId);
     const isUserRegistered = (await UserEvent.query().where('eventId', '=', eventId).andWhere('userId', '=', 1)).length;
     if (!event) throw new Error();
-    res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered });
+    res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered, DateTime: DateTime });
   } catch (error: any) {
     next();
   }

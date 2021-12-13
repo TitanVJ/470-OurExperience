@@ -25,6 +25,6 @@ block content
         tr 
           td 
             a(href=`/events/${event.id}`) #{ event.title }
-          td #{ event.date }
+          td #{ DateTime.fromJSDate(event.date).toLocaleString(DateTime.DATETIME_MED) }
           td #{ event.location }
           td #{ event.capacity }
