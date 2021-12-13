@@ -4,6 +4,7 @@ $(document).ready(() => {
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     events: events,
+    buttonText: { today: 'Today', prev: 'Previous', next: 'Next' }
   });
   calendar.render();
 });
