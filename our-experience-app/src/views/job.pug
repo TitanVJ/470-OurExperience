@@ -1,8 +1,6 @@
 extends layout
 
 append style
-    link(rel='stylesheet' type='text/css' href="/stylesheets/job.css")
-    link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
     link(rel='stylesheet' type='text/css' href="http://fonts.cdnfonts.com/css/habibi")
 block content
   section.content#wrapper
@@ -16,7 +14,7 @@ block content
       tr.label
         td Deadline
       tr.value
-        td #{ job.deadline }
+        td #{ moment(job.deadline).format('MMMM Do YYYY, h:mm:ss a'); }
 
       tr.label
         td Description
