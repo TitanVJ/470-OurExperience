@@ -2,20 +2,15 @@ extends admin_base
 
 block content
   h1= title
-  p= message
-  |
-  p
-    a( href='/admin/jobs') Manage Job Postings
-    | #{|}
-    a( href='/admin/companies') Manage Companies
 
   section#stats
     //- shows stuff like # of companies, job posts, current users, applications submited
     //- colourful gradient rounded corner rectangles like the apple info graphics
+    div(style="padding: 0.5em; max-width: fit-content; min-width: 100px; min-height: 75px; background-color: lavender; border: 1px solid darkslateblue; border-radius: 0.5em;")
 
-  section#actions
-    a( href='/admin/jobs') Manage Job Postings
-    |
-    a( href='/admin/companies') Manage Companies
+  section#actions(style="padding: 0.5em; margin: 0.5em;")
+    a( style="border: 1px solid black; border-radius: 0.25em; padding: 0.1em 0.5em; margin: 0.5em;" href='/admin/jobs') Manage Job Postings
+    a( style="border: 1px solid black; border-radius: 0.25em; padding: 0.1em 0.5em; margin: 0.5em;" href='/admin/companies') Manage Companies
+    a( style="border: 1px solid black; border-radius: 0.25em; padding: 0.1em 0.5em; margin: 0.5em;" href='/admin/events') Manage Events
 
 

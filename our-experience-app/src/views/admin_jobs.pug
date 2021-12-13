@@ -1,0 +1,38 @@
+extends admin_base
+
+include datatables
+
+append scripts
+  script.
+    $(document).ready( function () {
+      $('#job_postings').DataTable();
+    });
+
+block content
+  h1= title
+
+  section.container-fluid
+    a.btn.btn-primary( href='#' role='button') Add post
+
+  section.container.mt-5
+    table#job_postings.table.table-striped
+      thead
+          th Id
+          th Job Title
+          th Organization
+          th Edit
+          th Delete
+      tbody
+        for job in postings
+          tr
+            td(scope='row') #{ job.id }
+            td
+              a( href='/career/job/'+job.id) #{ job.job_postings[0].title }
+            td #{ job.name }
+            td
+              a.btn.btn-primary( href='/update_job/'+job.id role='button') Edit
+            td
+              a.btn.btn-danger( href='/delete_job/'+job.id role='button') Delete
+
+  footer
+    a( href="/admin") Back to Dashboard

@@ -12,7 +12,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
 router.get('/dashboard', admin_controller.dashboard);
 
 // Job postings related CRUD routes
-router.get('/jobs');
+router.get('/jobs', job_posting_controller.get_all_jobs);
 
 router.get('/job/:id', job_posting_controller.job_details);
 
