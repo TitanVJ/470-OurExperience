@@ -7,7 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.text('description').notNullable();
     table.timestamp('date').notNullable().defaultTo(knex.fn.now());
     table.string('location', 100).notNullable();
-    table.integer('capacity');
+    table.integer('capacity').unsigned();
   });
 }
 

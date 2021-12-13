@@ -25,6 +25,6 @@ block content
       dd #{ event.capacity }
 
     if (!isUserRegistered)
-      button(class='registration-button' data-event-id=event.id) Register
+      button(class='registration-button' data-event-id=event.id data-is-registered=isUserRegistered) Register
     else 
-      button(class='registration-button' data-event-id=event.id) Unregister
+      button(class='registration-button' data-event-id=event.id data-is-registered=isUserRegistered) Unregister

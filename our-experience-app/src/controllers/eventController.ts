@@ -10,7 +10,7 @@ const getEventList = async (req: Request, res: Response, next: NextFunction) => 
 const getEvent = async (req: Request, res: Response, next: NextFunction) => {
   const eventId = +req.params.id;
   const event = await Event.query().findById(eventId);
-  const isUserRegistered = (await UserEvent.query().where('eventId', '=', eventId).where('userId', '=', 1)).length;
+  const isUserRegistered = (await UserEvent.query().where('eventId', '=', eventId).andWhere('userId', '=', 1)).length;
   if (event) {
     res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered });
   } else {
@@ -28,7 +28,20 @@ const registerForEvent = async (req: Request, res: Response, next: NextFunction)
     await UserEvent.query().insert({ eventId: eventId, userId: 1 });
     res.sendStatus(201);
   } catch (error: any) {
-    console.log('ERROR:', error);
+    next();
+  }
+};
+
+const unregisterFromEvent = async (req: Request, res: Response, next: NextFunction) => {
+  const eventId = +req.params.id;
+  if (!eventId) {
+    res.sendStatus(400);
+    return;
+  }
+  try {
+    await UserEvent.query().delete().where('eventId', '=', eventId).andWhere('userId', '=', 1);
+    res.sendStatus(204);
+  } catch (error: any) {
     next();
   }
 };
@@ -41,4 +54,4 @@ const getCalendarByUserId = (req: Request, res: Response, next: NextFunction) =>
   res.render('calendar', { title: 'My Calendar', events: events });
 };
 
-export default { getEventList, getEvent, registerForEvent, getCalendarByUserId };
+export default { getEventList, getEvent, registerForEvent, unregisterFromEvent, getCalendarByUserId };
