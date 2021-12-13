@@ -9,7 +9,7 @@ section(tabindex='-1')#new-post-form.modal.fade
         button(type='button' data-bs-dismiss='modal' aria-lable='Close').btn-close
 
       div.modal-body
-        form(action="/admin/create_job" method="post")#job-form
+        form(action="/admin/job/create" method="post")#job-form
           div#mb-3
             label(for="title").col-form-label Job Title
             input(type="text" name='title' required)#title.form-control
