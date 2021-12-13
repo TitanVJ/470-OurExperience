@@ -9,25 +9,26 @@ section(tabindex='-1')#new-post-form.modal.fade
         button(type='button' data-bs-dismiss='modal' aria-lable='Close').btn-close
 
       div.modal-body
-        form(action="/admin/job/create" method="post")#job-form
+        form(action="/admin/job/create" method="POST")#job-form
+          input(type='hidden' name='id' value='')#job_id
           div#mb-3
-            label(for="title").col-form-label Job Title
+            label(for="title").form-label Job Title
             input(type="text" name='title' required)#title.form-control
 
           div#mb-3
-            label(for="org").col-form-label Organization
+            label(for="org").form-label Organization
             select(name='companyId' required)#org.form-select
-              option(value="") Pick an Organization
+              option(value="")#org_op Pick an Organization
               for company in companies
                 option(value=company.id) #{company.name}
 
           div#mb-3
-            label(for="apply_datetime").col-form-label Application Deadline
-            input(type="datetime-local" name='deadline' required)#apply_datetime.form-control
+            label(for="deadline").form-label Application Deadline
+            input(type="datetime-local" name='deadline' step='1' required)#deadline.form-control
 
           div#mb-3
-            label(for="description").col-form-label Job Description
-            textarea(rows='3' name='description' required)#job_title.form-control
+            label(for="description").form-label Job Description
+            textarea(rows='3' name='description' required)#description.form-control
       div.modal-footer
           button(type='button' data-bs-dismiss='modal').btn.btn-secondary Close
           button(type='submit' form='job-form').btn.btn-primary Submit
