@@ -3,6 +3,7 @@ extends base
 include ../datatables
 
 append scripts
+  script(src="/javascripts/manage_jobs.js" defer)
   script.
     $(document).ready( function () {
       $('#job_postings').DataTable();
@@ -11,7 +12,8 @@ append scripts
 block content
   h1= title
 
-  include job_post_form
+  include create_job_modal
+  include delete_job_modal
 
   section.container.mt-5
     table#job_postings.table.table-striped
@@ -31,7 +33,7 @@ block content
             td
               a.btn.btn-primary( role='button') Edit
             td
-              a.btn.btn-danger( role='button') Delete
+              a.btn.btn-danger( role='button' data-bs-toggle='modal' data-bs-target='#delete_modal' job_title=job.title job_id=job.id) Delete
 
   footer
     a( href="/admin") Back to Dashboard

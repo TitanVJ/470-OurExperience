@@ -20,7 +20,7 @@ router.post('/create_job', job_posting_controller.create_job);
 
 router.put('/update_job/:id', job_posting_controller.update_job);
 
-router.delete('/delete_job/:id', job_posting_controller.delete_job);
+router.post('/job/delete', job_posting_controller.delete_job);
 
 router.get('/companies');
 

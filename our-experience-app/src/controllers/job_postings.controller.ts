@@ -49,7 +49,15 @@ const update_job = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Delete
-const delete_job = (req: Request, res: Response, next: NextFunction) => {
+const delete_job = async (req: Request, res: Response, next: NextFunction) => {
+  try{
+    await JobPosting.query().deleteById( req.body. id);
+
+    req.flash('success', 'Deleted Job Post with ID: '+req.body.id);
+  } catch (error) {
+    req.flash('error', 'Error while deleting Job Post with ID: '+ req.body.id);
+  }
+  res.redirect('/admin/jobs');
 
 };
 
