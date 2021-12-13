@@ -10,8 +10,9 @@ const getEventList = async (req: Request, res: Response, next: NextFunction) => 
 const getEvent = async (req: Request, res: Response, next: NextFunction) => {
   const eventId = +req.params.id;
   const event = await Event.query().findById(eventId);
+  const isUserRegistered = (await UserEvent.query().where('eventId', '=', eventId).where('userId', '=', 1)).length;
   if (event) {
-    res.render('event', { title: event.title, event: event });
+    res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered });
   } else {
     next();
   }
