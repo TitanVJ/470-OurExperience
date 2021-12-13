@@ -33,10 +33,12 @@ app.use(cas.bounce, async (req, res, next) => {
   next();
 });
 
+app.locals.moment = require('moment');
+
 app.use(morgan('tiny'));
 
 const scriptSources = ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdn.datatables.net', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net/'];
-const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/', 'fonts.cdnfonts.com'];
+const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/', 'fonts.cdnfonts.com', 'cdnjs.cloudflare.com'];
 const connectSources = ["'self'"];
 const imgSrc = ['w3.org', 'upload.wikimedia.org'];
 const fontSrc = ['fonts.cdnfonts.com'];
