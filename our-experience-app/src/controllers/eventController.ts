@@ -9,7 +9,11 @@ const getEventList = async (req: Request, res: Response, next: NextFunction) => 
 const getEvent = async (req: Request, res: Response, next: NextFunction) => {
   const eventId = +req.params.id;
   const event = await Event.query().findById(eventId);
-  res.render('event', { event: event });
+  if (event) {
+    res.render('event', { event: event });
+  } else {
+    next();
+  }
 };
 
 const getCalendarByUserId = (req: Request, res: Response, next: NextFunction) => {};

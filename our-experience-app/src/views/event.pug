@@ -5,4 +5,17 @@ append style
 
 block content 
   .container 
-    h1 Event: #{event.title}
+    h1 Event: #{ event.title }
+
+    dl 
+      dt Description 
+      dd #{ event.description }
+
+      dt Date 
+      dd #{ event.date }
+
+      dt Location 
+      dd #{ event.location }
+
+      dt Capacity 
+      dd #{ event.capacity }
