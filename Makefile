@@ -25,9 +25,19 @@ stop:
 
 up-production:
 	make up-p
-	sleep 15
+	sleep 17
 	make migrate
 	make seed
+
+go-production:
+	make setup
+	make build
+	make up-production
+
+go-development:
+	make setup
+	make build
+	make up-proj
 
 migrate:
 	docker exec ts-node-express node_modules/.bin/knex migrate:latest
