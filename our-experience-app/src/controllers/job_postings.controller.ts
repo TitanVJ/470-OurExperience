@@ -19,7 +19,13 @@ const get_all_jobs = async (req: Request, res: Response, next: NextFunction) => 
 
 const job_details = async (req: Request, res: Response, next: NextFunction) => {
   const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
+  console.log(job);
   res.render('job', { title: job.title, job: job, company: job.company });
+};
+
+const job_data = async (req: Request, res: Response, next: NextFunction) => {
+  const job = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
+  res.send( job );
 };
 
 // Create
@@ -45,7 +51,21 @@ const create_job = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Update
-const update_job = (req: Request, res: Response, next: NextFunction) => {
+const update_job = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('Update request for Job Post with ID: ' + req.body.id, req.body);
+
+  try {
+    const updated_job = await JobPosting.query().findById( req.body.id )
+    .patch({
+      deadline: req.body.deadline,
+      description: req.body.description,
+      title: req.body.title
+    });
+    req.flash('success', 'Successfully updated Job Post with ID: ' + req.body.id );
+  } catch (error) {
+    req.flash('error', 'Error while attempting to update Job Post with ID: ' + req.body.id );
+  }
+  res.redirect('/admin/jobs');
 };
 
 // Delete
@@ -61,4 +81,4 @@ const delete_job = async (req: Request, res: Response, next: NextFunction) => {
 
 };
 
-export default { get_all_jobs, job_details, create_job, update_job, delete_job }
+export default { get_all_jobs, job_details, job_data, create_job, update_job, delete_job }

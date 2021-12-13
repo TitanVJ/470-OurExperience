@@ -13,6 +13,7 @@ block content
   h1= title
 
   include create_job_modal
+  include update_job_modal
   include delete_job_modal
 
   section.container.mt-5
@@ -31,7 +32,7 @@ block content
               a( href='/career/job/'+job.id) #{ job.title }
             td #{ job.company.name }
             td
-              a.btn.btn-primary( role='button') Edit
+              a.btn.btn-primary( role='button' data-bs-toggle='modal' data-bs-target='#update-modal' job_id=job.id) Edit
             td
               a.btn.btn-danger( role='button' data-bs-toggle='modal' data-bs-target='#delete_modal' job_title=job.title job_id=job.id) Delete
 
