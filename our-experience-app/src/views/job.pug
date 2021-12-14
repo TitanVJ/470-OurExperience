@@ -1,26 +1,26 @@
 extends layout
 
+include admin/tinymce
+
 append style
     link(rel='stylesheet' type='text/css' href="http://fonts.cdnfonts.com/css/habibi")
 block content
   section.content#wrapper
-    h1= title
-    table(border=1)
-      tr.label
-        td Organization
-      tr.value
-        td #{ company.name }
+    section.container.mt-5
+      h1= title
 
-      tr.label
-        td Deadline
-      tr.value
-        td #{ moment(job.deadline).format('MMMM Do YYYY, h:mm:ss a'); }
+      table(border=1).table.table-striped
+        tr.label
+          td Organization
+        tr.value
+          td #{ company.name }
 
-      tr.label
-        td Description
-      tr.value
-        td #{ job.description }
+        tr.label
+          td Deadline
+        tr.value
+          td #{ moment(job.deadline).format('MMMM Do YYYY, h:mm:ss a')}
 
-    footer
-      a(href="/career") Back to Job Postings |
-      a(href="/") Back to Dashboard
+        tr.label
+          td Description
+        tr.value
+          td !{ job.description }

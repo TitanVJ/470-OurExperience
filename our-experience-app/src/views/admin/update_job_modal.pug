@@ -1,5 +1,5 @@
 section(tabindex='-1')#update-modal.modal.fade
-  div.modal-dialog
+  div.modal-dialog.modal-lg
     div.modal-content
       div.modal-header
         h5#new-post-col-form-label.modal-title Update Jop Post
@@ -23,7 +23,7 @@ section(tabindex='-1')#update-modal.modal.fade
 
           div#mb-3
             label(for="description").form-label Job Description
-            textarea(rows='3' name='description' required)#description.form-control
+            textarea(name='description' required)#description.form-control.tiny
       div.modal-footer
           button(type='button' data-bs-dismiss='modal').btn.btn-secondary Close
           button(type='submit' form='update-form').btn.btn-primary Update

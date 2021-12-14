@@ -13,16 +13,17 @@ append scripts
     });
 
 block content
-  h1= title
-  table#job_postings.table.table-striped
-    thead
-        th Id
-        th Job Title
-        th Organization
-    tbody
-      for job in postings
-        tr
-          td #{ job.id }
-          td
-            a(href='/career/job/'+job.id) #{ job.job_postings[0].title }
-          td #{ job.name }
+  section.container.mt-5
+    h1= title
+    table#job_postings.table.table-striped
+      thead
+          th Id
+          th Job Title
+          th Organization
+      tbody
+        for job in postings
+          tr
+            td #{ job.id }
+            td
+              a(href='/career/job/'+job.id) #{ job.title }
+            td #{ job.name }

@@ -1,12 +1,19 @@
 extends base
 
 include ../datatables
+include tinymce
 
 append scripts
   script(src="/javascripts/manage_jobs.js" defer)
   script.
     $(document).ready( function () {
       $('#job_postings').DataTable();
+
+      tinymce.init({
+        selector: '.tiny',
+        menubar: false
+      });
+
     });
 
 block content

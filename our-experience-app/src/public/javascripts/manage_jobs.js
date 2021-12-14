@@ -41,6 +41,13 @@ update_modal.addEventListener('show.bs.modal', (event) =>{
 
         deadline.valueAsDate = new Date( job_data.deadline );
 
-        description.value = job_data.description;
+        // description.innerText = job_data.description;
+        tinymce.activeEditor.selection.setContent(job_data.description);
+        // tinymce.get('#update-form #description').setContent(job_data.description);
+    });
+
+    update_modal.addEventListener('hide.bs.modal', (event) =>{
+        tinymce.activeEditor.setContent('');
+
     });
 });

@@ -1,5 +1,7 @@
 extends base
 
+include tinymce
+
 append style
     link(rel='stylesheet' type='text/css' href="http://fonts.cdnfonts.com/css/habibi")
 block content
@@ -22,4 +24,4 @@ block content
       tr.label
         td Description
       tr.value
-        td #{ job.description }
+        td !{ job.description }
