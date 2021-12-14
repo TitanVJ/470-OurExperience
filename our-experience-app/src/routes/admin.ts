@@ -30,11 +30,7 @@ router.get('/companies', company_controller.get_all_companies);
 
 router.get('/company/:id', company_controller.company_details);
 
-router.get('/company/data/:id', company_controller.company_data);
-
 router.post('/company/create', company_controller.create_company);
-
-router.post('/company/update', company_controller.update_company);
 
 router.post('/company/delete', company_controller.delete_company);
 

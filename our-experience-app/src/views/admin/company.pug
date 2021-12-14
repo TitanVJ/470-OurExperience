@@ -1,0 +1,22 @@
+extends base
+
+append style
+    link(rel='stylesheet' type='text/css' href="http://fonts.cdnfonts.com/css/habibi")
+
+include ../datatables
+
+block content
+  section.content#wrapper
+    h1= title
+
+    section.container.mt-5
+    table#job_postings.table.table-striped
+      thead
+          th Id
+          th Job Title
+      tbody
+        for job in jobs
+          tr
+            td #{ job.id }
+            td
+              a( href='/admin/job/'+job.id) #{ job.title }

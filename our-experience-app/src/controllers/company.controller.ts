@@ -11,16 +11,13 @@ const get_all_companies = async (req: Request, res: Response, next: NextFunction
                                 ) as "numPosts"
                                 from Company;`
                               );
-  console.log(data[0]);
   res.render('admin/companies', { title: 'Manage Companies', companies: data[0] });
 };
 
-const company_details = (req: Request, res: Response, next: NextFunction) => {
-  res.send('company\n'+ req.params.id);
-};
-
-const company_data = (req: Request, res: Response, next: NextFunction) => {
-
+const company_details = async (req: Request, res: Response, next: NextFunction) => {
+  const jobs:any = await JobPosting.query().where('companyId', '=', req.params.id).withGraphFetched('company');
+  const company:any = await Company.query().findById( req.params.id );
+  res.render('admin/company', { title: company.name, jobs: jobs});
 };
 
 // CRUD
@@ -58,8 +55,4 @@ const delete_company = async (req: Request, res: Response, next: NextFunction) =
   res.redirect('/admin/companies');
 };
 
-const update_company = (req: Request, res: Response, next: NextFunction) => {
-
-};
-
-export default { get_all_companies, company_details, company_data, create_company, delete_company, update_company }
+export default { get_all_companies, company_details, create_company, delete_company }
