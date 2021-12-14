@@ -3,10 +3,12 @@ import { Event } from '../models/event.model';
 import { UserEvent } from '../models/user_event.model';
 const { DateTime } = require('luxon');
 
+const DATE_FORMAT_OPTIONS = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'America/Vancouver' };
+
 const getEventList = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const events = await Event.query().select('Event.*', Event.relatedQuery('attendees').count().as('attendeeCount'));
-    res.render('event_list', { title: 'Events', events: events, DateTime: DateTime });
+    res.render('event_list', { title: 'Events', events: events, DateTime: DateTime, options: DATE_FORMAT_OPTIONS });
   } catch (error: any) {
     next(error);
   }
@@ -30,7 +32,7 @@ const getEvent = async (req: Request, res: Response, next: NextFunction) => {
       throw new Error();
     }
     const csrfToken = req.csrfToken();
-    res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered, DateTime: DateTime, csrfToken: csrfToken });
+    res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered, DateTime: DateTime, options: DATE_FORMAT_OPTIONS, csrfToken: csrfToken });
   } catch (error: any) {
     next(error);
   }
