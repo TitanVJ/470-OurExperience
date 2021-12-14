@@ -14,7 +14,9 @@ block content
 
   include create_job_modal
   include update_job_modal
-  include delete_job_modal
+  include delete_confirm_modal
+
+  +delete_confirm_modal('/admin/job/delete', 'Job Post')
 
   section.container.mt-5
     table#job_postings.table.table-striped
@@ -35,6 +37,3 @@ block content
               a.btn.btn-primary( role='button' data-bs-toggle='modal' data-bs-target='#update-modal' job_id=job.id) Edit
             td
               a.btn.btn-danger( role='button' data-bs-toggle='modal' data-bs-target='#delete_modal' job_title=job.title job_id=job.id) Delete
-
-  footer
-    a( href="/admin") Back to Dashboard
