@@ -79,7 +79,7 @@ const delete_job = async (req: Request, res: Response, next: NextFunction) => {
 
     req.flash('success', 'Deleted Job Post with ID: '+req.body.id);
   } catch (error) {
-    req.flash('error', 'Error while deleting Job Post with ID: '+ req.body.id);
+    req.flash('error', 'Cannot delete job post with application');
   }
   res.redirect('/admin/jobs');
 
