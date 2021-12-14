@@ -31,7 +31,7 @@ export const session_config = {
 
 export const cas_config = {
   cas_url: 'https://cas:8443/cas',
-  service_url: `http://localhost:${SERVER_PORT}`,
+  service_url: `http://localhost:${8080}`,
   cas_version: '3.0',
   cas_port: 8443,
   renew: false,
@@ -41,5 +41,5 @@ export const cas_config = {
   session_name: 'cas_user',
   session_info: 'cas_userinfo',
   destroy_session: false,
-  return_to: `http://localhost:${SERVER_PORT}`
+  return_to: `http://localhost:${8080}`
 };
