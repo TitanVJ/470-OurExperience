@@ -10,6 +10,8 @@ import { cas_config, session_config } from './config/config';
 import { User } from './models/user.model';
 const csrf = require('csurf');
 
+import { admin, student } from './middlewares/authorization';
+
 const CASAuthentication = require('node-cas-authentication');
 
 const indexRouter = require('./routes/index');
@@ -19,6 +21,7 @@ const careerRouter = require('./routes/career');
 const applicationRouter = require('./routes/application');
 const documentRouter = require('./routes/document');
 const eventRouter = require('./routes/event');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
@@ -32,6 +35,8 @@ app.use(session(session_config));
 const cas = new CASAuthentication(cas_config);
 app.use(csrf());
 
+app.use(csrf());
+
 // save the user into req so that you can use through out the app
 // additionally save user to locals so that we rendered pages can use them
 app.use(cas.bounce, async (req, res, next) => {
@@ -40,10 +45,12 @@ app.use(cas.bounce, async (req, res, next) => {
   next();
 });
 
+app.locals.moment = require('moment');
+
 app.use(morgan('tiny'));
 
 const scriptSources = ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdn.datatables.net', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net/'];
-const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/', 'fonts.cdnfonts.com'];
+const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/', 'fonts.cdnfonts.com', 'cdnjs.cloudflare.com'];
 const connectSources = ["'self'"];
 const imgSrc = ['w3.org', 'upload.wikimedia.org', 'cdn.datatables.net'];
 const fontSrc = ['fonts.cdnfonts.com'];
@@ -64,6 +71,7 @@ app.use(
 );
 
 app.use(helmet({ contentSecurityPolicy: false }));
+
 // this is temp. until nginx is setup to serve the static files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -75,16 +83,18 @@ app.use((req, res, next) => {
 
 //Routes
 app.use('/', cas.bounce, indexRouter);
-app.use('/student', cas.bounce, studentRouter);
+app.use('/student', cas.bounce, student, studentRouter);
 // app.use('/company', companyRouter);
-app.use('/career', cas.bounce, careerRouter);
-app.use('/applications', applicationRouter);
+app.use('/career', cas.bounce, student, careerRouter);
+app.use('/applications', cas.bounce, student, applicationRouter);
 app.use('/documents', cas.bounce, documentRouter);
-app.use('/events', eventRouter);
+app.use('/events', cas.bounce, student, eventRouter);
+app.use('/admin', cas.bounce, admin, adminRouter);
+app.get('/logout', cas.logout);
 // catch 404's and handle erros
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
-export default app;
+export = app;
 
 // THIS IS THE ACTUAL APP

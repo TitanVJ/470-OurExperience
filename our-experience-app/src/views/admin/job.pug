@@ -1,0 +1,27 @@
+extends base
+
+include tinymce
+
+append style
+    link(rel='stylesheet' type='text/css' href="http://fonts.cdnfonts.com/css/habibi")
+block content
+  section.content#wrapper
+    h1= title
+
+    section.container.mt-5
+    table(border=1).table.table-striped
+      tr.label
+        td Organization
+      tr.value
+        td #{ company.name }
+
+      tr.label
+        td Deadline
+      tr.value
+        td= moment(job.deadline).format('MMMM Do YYYY, h:mm:ss a')
+
+
+      tr.label
+        td Description
+      tr.value
+        td !{ job.description }

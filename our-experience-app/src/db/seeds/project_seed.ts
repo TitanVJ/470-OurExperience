@@ -28,7 +28,13 @@ export async function seed(knex: Knex): Promise<void> {
     password: await bcrypt.hash(password2, salt),
     role: 'Student'
   };
-  await knex('User').insert([student, student2]);
+
+  const staff = {
+    username: 'ggbaker',
+    password: await bcrypt.hash('lisp_#1', salt),
+    role: 'Staff'
+  }
+  await knex('User').insert([student, student2, staff]);
 
   await knex('Company').insert([{ name: 'A Thinking Ape' }, { name: 'EA Games' }, { name: 'Microsoft' }]);
 

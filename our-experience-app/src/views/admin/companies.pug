@@ -1,0 +1,41 @@
+extends base
+
+include ../datatables
+
+append scripts
+  script(src="/javascripts/manage_company.js" defer)
+  script.
+    $(document).ready( function () {
+      $('#companies').DataTable();
+    });
+
+
+block content
+  h1= title
+
+  include create_company_modal
+  include delete_confirm_modal
+  +delete_confirm_modal('/admin/company/delete', 'Company')
+
+  section.container.mt-5
+    table#companies.table.table-striped
+      thead
+          th Id
+          th Organization
+          th Number of Job Posts
+          th Delete
+      tbody
+        for c in companies
+          tr
+            td #{ c.id }
+            td
+              a( href='/admin/company/'+c.id) #{ c.name }
+            td #{ c.numPosts }
+            td
+              if c.numPosts > 0
+                div(data-bs-toggle='tooltip' data-bs-placement='bottom' title='Cannot remove company with Job Posts')
+                  button.btn.btn-danger(disabled) Delete
+              else
+                div(data-bs-toggle='tooltip' data-bs-placement='bottom' title='Remove '+ c.name)
+                  button.btn.btn-danger( role='button' data-bs-toggle='modal' data-bs-target='#delete_modal' company_name=c.name company_id=c.id) Delete
+

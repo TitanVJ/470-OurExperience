@@ -1,0 +1,15 @@
+extends base
+
+block content
+  h1= title
+
+  section.row.row-cols-1.row-cols-md-2.g-4
+    div(style='width: 18rem;').card.col
+      div.card-body
+        h5.card-title Number of Companies
+        p.class-text=stats.c_count
+
+    div(style='width: 18rem;').card.col
+      div.card-body
+        h5.card-title Number of Job Posts
+        p.class-text=stats.j_count

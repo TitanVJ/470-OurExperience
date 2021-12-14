@@ -1,5 +1,13 @@
 import Model from '../db';
 
+export interface JobPosting {
+  Id: number,
+  companyId: string,
+  deadline: string,
+  description: string,
+  title: string
+}
+
 export class JobPosting extends Model {
   static get tableName() {
     return 'JobPosting';
@@ -25,6 +33,14 @@ export class JobPosting extends Model {
             to: 'JobApplication.userId'
           },
           to: 'User.id'
+        }
+      },
+      applications: {
+        relation: Model.HasManyRelation,
+        modelClass: `${__dirname}/job_application.model`,
+        join: {
+          from: 'JobPosting.id',
+          to: 'JobApplication.postingId'
         }
       }
     };

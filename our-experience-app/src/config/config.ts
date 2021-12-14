@@ -29,15 +29,24 @@ export const session_config = {
   }
 };
 
+declare module 'express-session' {
+  interface Session {
+    cas_user: string;
+    cas_userinfo: any;
+  }
+}
+
 export const cas_config = {
   cas_url: 'https://cas:8443/cas',
   service_url: `http://localhost:${8080}`,
   cas_version: '3.0',
   cas_port: 8443,
   renew: false,
-  is_dev_mode: process.env.CAS_DEV_MODE === 'true' ? true : false,
-  dev_mode_user: 'test',
-  dev_mode_info: {},
+  is_dev_mode: process.env.CAS_DEV_MODE === 'true',
+  dev_mode_user: process.env.CAS_DEV_USER,
+  dev_mode_info: {
+    role: 'Staff'
+  },
   session_name: 'cas_user',
   session_info: 'cas_userinfo',
   destroy_session: false,

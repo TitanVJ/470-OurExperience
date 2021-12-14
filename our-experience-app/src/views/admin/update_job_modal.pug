@@ -1,0 +1,30 @@
+section(tabindex='-1')#update-modal.modal.fade
+  div.modal-dialog.modal-lg
+    div.modal-content
+      div.modal-header
+        h5#new-post-col-form-label.modal-title Update Jop Post
+        button(type='button' data-bs-dismiss='modal' aria-lable='Close').btn-close
+
+      div.modal-body
+        form(action="/admin/job/update" method="POST")#update-form
+          input(type='hidden' name='_csrf' value=csrfToken)
+          input(type='hidden' name='id' value='')#job_id
+          div#mb-3
+            label(for="title").form-label Job Title
+            input(type="text" name='title' required)#title.form-control
+
+          div#mb-3
+            label(for="org").form-label Organization
+            select(name='companyId' required disabled)#org.form-select
+              option(value="" selected)#org_op
+
+          div#mb-3
+            label(for="deadline").form-label Application Deadline
+            input(type="datetime-local" name='deadline' step='1' required)#deadline.form-control
+
+          div#mb-3
+            label(for="description").form-label Job Description
+            textarea(name='description' required)#description.form-control.tiny
+      div.modal-footer
+          button(type='button' data-bs-dismiss='modal').btn.btn-secondary Close
+          button(type='submit' form='update-form').btn.btn-primary Update

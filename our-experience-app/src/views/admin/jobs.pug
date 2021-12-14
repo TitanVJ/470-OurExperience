@@ -1,0 +1,53 @@
+extends base
+
+include ../datatables
+include tinymce
+
+append scripts
+  script(src="/javascripts/manage_jobs.js" defer)
+  script.
+    $(document).ready( function () {
+      $('#job_postings').DataTable();
+
+      tinymce.init({
+        selector: '.tiny',
+        menubar: false
+      });
+
+    });
+
+block content
+  h1= title
+
+  include create_job_modal
+  include update_job_modal
+  include delete_confirm_modal
+
+  +delete_confirm_modal('/admin/job/delete', 'Job Post')
+
+  section.container.mt-5
+    table#job_postings.table.table-striped
+      thead
+          th Id
+          th Job Title
+          th Organization
+          th Number of applications
+          th Edit
+          th Delete
+      tbody
+        for job in job_posts
+          tr
+            td #{ job.id }
+            td
+              a( href='/admin/job/'+job.id) #{ job.title }
+            td #{ job.company.name }
+            td #{ job.app_count }
+            td
+              a.btn.btn-primary( role='button' data-bs-toggle='modal' data-bs-target='#update-modal' job_id=job.id) Edit
+            td
+              if job.app_count > 0
+                div(data-bs-toggle='tooltip' data-bs-placement='bottom' title='Cannot remove Job Posts with Applications')
+                  button.btn.btn-danger(disabled) Delete
+              else
+                div(data-bs-toggle='tooltip' data-bs-placement='bottom' title='Remove '+ job.title)
+                  a.btn.btn-danger( role='button' data-bs-toggle='modal' data-bs-target='#delete_modal' job_title=job.title job_id=job.id) Delete

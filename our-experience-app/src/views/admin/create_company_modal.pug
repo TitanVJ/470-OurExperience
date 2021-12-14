@@ -1,0 +1,21 @@
+section.container
+  button(type='button' data-bs-toggle='modal' data-bs-target='#new-company').btn.btn-primary Add company
+
+section(tabindex='-1')#new-company.modal.fade
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        h5#new-compan-form-label.modal-title Add Company
+        button(type='button' data-bs-dismiss='modal' aria-lable='Close').btn-close
+
+      div.modal-body
+        form(action="/admin/company/create" method="POST")#company-form
+          input(type='hidden' name='_csrf' value=csrfToken)
+          input(type='hidden' name='id' value='')#company_id
+          div#mb-3
+            label(for="name").form-label Company Name
+            input(type="text" name='name' required)#name.form-control
+
+      div.modal-footer
+          button(type='button' data-bs-dismiss='modal').btn.btn-secondary Close
+          button(type='submit' form='company-form').btn.btn-primary Submit
