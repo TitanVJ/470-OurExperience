@@ -6,7 +6,7 @@ import { JobPosting } from '../models/job_posting.model';
 const get_all_jobs = async (req: Request, res: Response, next: NextFunction) => {
   const job_posts = await JobPosting.query().withGraphFetched('company');
 
-  if(req.session.cas_userinfo.role == 'Staff') {
+  if(req.user.role == 'Staff') {
     const companies = await Company.query();
     res.render('admin/jobs', { title: 'Manage Job Posts', job_posts: job_posts, companies: companies});
 
@@ -20,7 +20,7 @@ const job_details = async (req: Request, res: Response, next: NextFunction) => {
   const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
   const payload = { title: job.title, job: job, company: job.company };
 
-  if(req.session.cas_userinfo.role == 'Staff') {
+  if(req.user.role == 'Staff') {
     res.render('admin/job', payload);
   }else{
     res.render('job', payload);
