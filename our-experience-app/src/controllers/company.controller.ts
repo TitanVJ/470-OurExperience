@@ -24,7 +24,24 @@ const company_data = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // CRUD
-const create_company = (req: Request, res: Response, next: NextFunction) => {
+const create_company = async (req: Request, res: Response, next: NextFunction) => {
+  try{
+    const new_company = await Company.query()
+    .insert({
+      name: req.body.name
+    });
+
+    if(new_company instanceof Company) {
+      req.flash('success', `Successfully added: ${new_company.name}`);
+    } else {
+      throw Error;
+    }
+  } catch {
+    req.flash('error', `Error while attempting to create company: ${req.body.name}`);
+  }
+  res.redirect('/admin/companies/');
+
+
 
 };
 

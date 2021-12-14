@@ -13,6 +13,7 @@ append scripts
 block content
   h1= title
 
+  include create_company_modal
   include delete_confirm_modal
   +delete_confirm_modal('/admin/company/delete', 'Company')
 
