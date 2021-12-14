@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -16,20 +17,23 @@ const CASAuthentication = require('node-cas-authentication');
 const indexRouter = require('./routes/index');
 const studentRouter = require('./routes/student');
 const companyRouter = require('./routes/company');
-import careerRouter from './routes/career';
-import adminRouter from './routes/admin';
+const careerRouter = require('./routes/career');
+const applicationRouter = require('./routes/application');
+const documentRouter = require('./routes/document');
+const eventRouter = require('./routes/event');
+const adminRouter = require('./routes/admin');
 
 const app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 app.use(session(session_config));
 const cas = new CASAuthentication(cas_config);
+app.use(csrf());
 
 app.use(csrf());
 
@@ -48,7 +52,7 @@ app.use(morgan('tiny'));
 const scriptSources = ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdn.datatables.net', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net/'];
 const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/', 'fonts.cdnfonts.com', 'cdnjs.cloudflare.com'];
 const connectSources = ["'self'"];
-const imgSrc = ['w3.org', 'upload.wikimedia.org'];
+const imgSrc = ['w3.org', 'upload.wikimedia.org', 'cdn.datatables.net'];
 const fontSrc = ['fonts.cdnfonts.com'];
 app.use(flash());
 
@@ -68,7 +72,6 @@ app.use(
 
 app.use(helmet({ contentSecurityPolicy: false }));
 
-
 // this is temp. until nginx is setup to serve the static files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -79,16 +82,19 @@ app.use((req, res, next) => {
 });
 
 //Routes
-app.use('/', cas.bounce,  indexRouter);
-app.use('/student', cas.bounce, student,studentRouter);
+app.use('/', cas.bounce, indexRouter);
+app.use('/student', cas.bounce, student, studentRouter);
 // app.use('/company', companyRouter);
 app.use('/career', cas.bounce, student, careerRouter);
+app.use('/applications', cas.bounce, student, applicationRouter);
+app.use('/documents', cas.bounce, documentRouter);
+app.use('/events', cas.bounce, student, eventRouter);
 app.use('/admin', cas.bounce, admin, adminRouter);
-
+app.get('/logout', cas.logout);
 // catch 404's and handle erros
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
-export default app;
+export = app;
 
 // THIS IS THE ACTUAL APP

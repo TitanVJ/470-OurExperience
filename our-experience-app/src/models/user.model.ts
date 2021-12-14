@@ -33,6 +33,18 @@ export class User extends Model {
           from: 'User.id',
           to: 'Document.userId'
         }
+      },
+      events: {
+        relation: Model.ManyToManyRelation,
+        modelClass: `${__dirname}/event.model`,
+        join: {
+          from: 'User.id',
+          through: {
+            from: 'UserEvent.userId',
+            to: 'UserEvent.eventId'
+          },
+          to: 'Event.id'
+        }
       }
     };
   }

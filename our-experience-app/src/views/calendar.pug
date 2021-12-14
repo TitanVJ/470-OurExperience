@@ -1,0 +1,14 @@
+extends layout 
+
+append style 
+  link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
+  link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" integrity="sha256-16PDMvytZTH9heHu9KBPjzrFTaoner60bnABykjNiM0=" crossorigin="anonymous")
+
+append scripts 
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js")
+  script(src="/javascripts/calendar.js")
+  script(src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js" integrity="sha256-XOMgUu4lWKSn8CFoJoBoGd9Q/OET+xrfGYSo+AKpFhE=" crossorigin="anonymous")
+
+block content
+  h1= title
+  div#calendar(data-events=events)

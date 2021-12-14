@@ -1,4 +1,4 @@
-import express, {Request, Response, NextFunction} from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import admin_controller from '../controllers/admin.controller';
 import company_controller from '../controllers/company.controller';
 import job_posting_controller from '../controllers/job_postings.controller';
@@ -34,6 +34,6 @@ router.post('/company/create', company_controller.create_company);
 
 router.post('/company/delete', company_controller.delete_company);
 
-router.get('/users')
+router.get('/users');
 
-export default router;
+export = router;

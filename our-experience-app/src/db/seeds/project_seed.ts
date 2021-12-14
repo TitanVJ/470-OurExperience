@@ -4,6 +4,8 @@ import bcrypt from 'bcryptjs';
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex.raw('SET FOREIGN_KEY_CHECKS=0;');
+  await knex('UserEvent').truncate();
+  await knex('Event').truncate();
   await knex('ApplicationDocument').truncate();
   await knex('Document').truncate();
   await knex('JobApplication').truncate();
@@ -12,7 +14,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex('User').truncate();
   await knex.raw('SET FOREIGN_KEY_CHECKS=1;');
 
-  // Inserts seed entries
+  // Inserts seed entries - demo accounts for demonstration
   const password = 'password';
   const salt = await bcrypt.genSalt(12);
   const student = {
@@ -39,14 +41,14 @@ export async function seed(knex: Knex): Promise<void> {
   await knex('JobPosting').insert([
     {
       companyId: 1,
-      deadline: new Date(),
+      deadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
       title: 'Unity Game Developer Co-op'
     },
     {
       companyId: 2,
-      deadline: new Date(),
+      deadline: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
       title: 'Game Developer Co-op FIFA Team'
@@ -60,5 +62,26 @@ export async function seed(knex: Knex): Promise<void> {
     }
   ]);
 
-  await knex('JobApplication').insert([{ postingId: 1, userId: 1, status: 'submitted' }]);
+  await knex('JobApplication').insert([
+    { postingId: 1, userId: 1, status: 'submitted' },
+    { postingId: 1, userId: 2, status: 'submitted' },
+    { postingId: 2, userId: 1, status: 'submitted', submittedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30 - 86400000) }
+  ]);
+
+  await knex('Event').insert([
+    {
+      title: 'Co-op Resume Workshop',
+      location: '8888 University Dr, Burnaby, BC V5A 1S6',
+      date: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 - 86400000),
+      capacity: 1,
+      description: 'Mandatory Resume workshop for prospective Co-op students'
+    },
+    {
+      title: 'Co-op Cover Letter Workshop',
+      location: '8888 University Dr, Burnaby, BC V5A 1S6',
+      date: new Date(),
+      capacity: 25,
+      description: 'Mandatory Cover Letter workshop for prospective Co-op students'
+    }
+  ]);
 }

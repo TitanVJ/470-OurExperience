@@ -6,23 +6,13 @@ services:
     container_name: mysql_db
     restart: always
     ports:
-      - '3307:3307'
+      - '3306:3306'
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DB}
-
-  # admin interface for database
-  adminer:
-    depends_on:
-      - mysql
-    image: adminer
-    container_name: adminer-db-interface
-    restart: always
-    ports:
-      - 9000:8080
 
   cas:
     build:
@@ -46,10 +36,14 @@ services:
     container_name: ts-node-express
     expose:
       - '5000'
-    ports:
-      - '5000:5000'
-    command: npm run dev
     environment:
       NODE_TLS_REJECT_UNAUTHORIZED: 0
-      CAS_DEV_MODE: ${CAS_DEV_MODE}
-      CAS_DEV_USER: ${CAS_DEV_USER}
+    command: npm run dev
+
+  web-nginx:
+    container_name: web-nginx
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - '8080:80'

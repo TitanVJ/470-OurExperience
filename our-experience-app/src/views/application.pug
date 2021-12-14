@@ -1,0 +1,36 @@
+extends layout 
+
+append style 
+  link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
+
+block content 
+  .container
+    h1 Apply: #{title}
+
+    form(action=`/career/job/${job.id}/apply` method='POST').mt-3.row
+      .col-sm-8.mb-3
+        input(type="hidden" name="_csrf" value=csrfToken)
+        label(for="formFile" class="form-label sfu-theme") Resume*:
+        select(class="form-select text-center" id='formFile' name='resumeId' required)
+          option(selected disabled value="") -- select filetype --
+          each document in formTypes.resume 
+            option(value=document.id) #{document.filename}
+        label(for="coverLetterFile" class="form-label sfu-theme") Cover Letter:
+        select(class="form-select text-center" id='coverLetterFile' name='coverLetterId')
+          option(selected disabled value="") -- select filetype --
+          each document in formTypes.coverLetter
+            option(value=document.id) #{document.filename}
+        label(for="transcriptFile" class="form-label sfu-theme") Transcript:
+        select(class="form-select text-center" id='transcriptFile' name='transcriptId')
+          option(selected disabled value="") -- select filetype --
+          each document in formTypes.transcript
+            option(value=document.id) #{document.filename}
+        label(for="sisFile" class="form-label sfu-theme") Sis:
+        select(class="form-select text-center" id='sisFile' name='sisId')
+          option(selected disabled value="") -- select filetype --
+          each document in formTypes.sis
+            option(value=document.id) #{document.filename}
+        
+      .mb-3
+        button(type='submit') Submit
+
