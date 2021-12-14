@@ -1,14 +1,40 @@
-extends layout
+extends base
+
+include ../datatables
+
+append scripts
+  script(src="/javascripts/manage_company.js" defer)
+  script.
+    $(document).ready( function () {
+      $('#job_postings').DataTable();
+    });
+
 
 block content
-  //- name, some compnay details, the contact and their details(prob can be another pug template), list of job offerings
   h1= title
-  section#company
-    p Placeholder for company details
 
-    section#company_contact
-      p Placeholder for
+  include delete_confirm_modal
+  +delete_confirm_modal('/admin/company/delete', 'Company')
 
-  section#posted_jobs
-    p Placeholder for table of listed position
+  section.container.mt-5
+    table#companies.table.table-striped
+      thead
+          th Id
+          th Organization
+          th Number of Job Posts
+          th Delete
+      tbody
+        for c in companies
+          tr
+            td #{ c.id }
+            td
+              a( href='/admin/company/'+c.id) #{ c.name }
+            td #{ c.numPosts }
+            td
+              if c.numPosts > 0
+                div(data-bs-toggle='tooltip' data-bs-placement='bottom' title='Cannot remove company with Job Posts')
+                  button.btn.btn-danger(disabled) Delete
+              else
+                div(data-bs-toggle='tooltip' data-bs-placement='bottom' title='Remove '+ c.name)
+                  button.btn.btn-danger( role='button' data-bs-toggle='modal' data-bs-target='#delete_modal' company_name=c.name company_id=c.id) Delete
 
