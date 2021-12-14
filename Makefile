@@ -13,7 +13,7 @@ up-p:
 
 up-proj:
 	make up
-	sleep 17
+	sleep 20
 	make migrate
 	make seed
 
@@ -25,7 +25,7 @@ stop:
 
 up-production:
 	make up-p
-	sleep 17
+	sleep 20
 	make migrate
 	make seed
 

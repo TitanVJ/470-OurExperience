@@ -1,5 +1,8 @@
 extends layout 
 
+append headData
+  meta(name='_csrf', content=csrfToken)
+
 append style 
   link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")
 

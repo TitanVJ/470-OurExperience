@@ -4,7 +4,8 @@ import { Document } from '../models/document.model';
 const getListDocumentsByUserId = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const documents = await Document.query().where('userId', req.user.id).where('isDeleted', false);
-    res.render('document_list', { title: 'Documents', documents: documents });
+    const csrfToken = req.csrfToken();
+    res.render('document_list', { title: 'Documents', documents: documents, csrfToken: csrfToken });
   } catch (error) {
     next(error);
   }
