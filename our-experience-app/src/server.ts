@@ -7,6 +7,7 @@ import flash from 'connect-flash';
 import middlewares from './middlewares/middlewares';
 import { cas_config, session_config } from './config/config';
 import { User } from './models/user.model';
+import { admin, student } from './middlewares/authorization';
 
 const CASAuthentication = require('node-cas-authentication');
 
@@ -72,11 +73,11 @@ app.use((req, res, next) => {
 });
 
 //Routes
-app.use('/', cas.bounce, indexRouter);
-app.use('/student', cas.bounce, studentRouter);
+app.use('/', cas.bounce,  indexRouter);
+app.use('/student', cas.bounce, student,studentRouter);
 // app.use('/company', companyRouter);
-app.use('/career', cas.bounce, careerRouter);
-app.use('/admin', cas.bounce, adminRouter);
+app.use('/career', cas.bounce, student, careerRouter);
+app.use('/admin', cas.bounce, admin, adminRouter);
 
 // catch 404's and handle erros
 app.use(middlewares.notFound);
