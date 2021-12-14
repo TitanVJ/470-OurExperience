@@ -14,16 +14,6 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DB}
 
-  # admin interface for database
-  adminer:
-    depends_on:
-      - mysql
-    image: adminer
-    container_name: adminer-db-interface
-    restart: always
-    ports:
-      - 9000:8080
-
   cas:
     build:
       context: ./cas_auth
