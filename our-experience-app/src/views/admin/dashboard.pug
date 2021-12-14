@@ -3,7 +3,13 @@ extends base
 block content
   h1= title
 
-  section#stats
-    //- shows stuff like # of companies, job posts, current users, applications submited
-    //- colourful gradient rounded corner rectangles like the apple info graphics
-    div(style="padding: 0.5em; max-width: fit-content; min-width: 100px; min-height: 75px; background-color: lavender; border: 1px solid darkslateblue; border-radius: 0.5em;")
+  section.row.row-cols-1.row-cols-md-2.g-4
+    div(style='width: 18rem;').card.col
+      div.card-body
+        h5.card-title Number of Companies
+        p.class-text=stats.c_count
+
+    div(style='width: 18rem;').card.col
+      div.card-body
+        h5.card-title Number of Job Posts
+        p.class-text=stats.j_count
