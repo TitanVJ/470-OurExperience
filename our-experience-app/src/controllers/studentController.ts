@@ -9,7 +9,9 @@ const inputtedReqFile = (req: any, filepath: any, mimetype: any) => {
 };
 
 const getUploadPage = (req: Request, res: Response, next: NextFunction) => {
-  res.render('studentUpload', { title: 'Upload Document' });
+  const csrfToken = req.csrfToken();
+  console.log(csrfToken);
+  res.render('studentUpload', { title: 'Upload Document', csrfToken: csrfToken });
 };
 
 const postUploadPage = async (req: Request, res: Response, next: NextFunction) => {
@@ -32,7 +34,8 @@ const postUploadPage = async (req: Request, res: Response, next: NextFunction) =
           userId: req.user.id,
           filepath: req.file.path,
           mimeType: req.file.mimetype,
-          documentType: req.body.docType
+          documentType: req.body.docType,
+          filename: req.file.filename
         };
 
         const document = await Document.query().insert(newDocument);
@@ -40,7 +43,7 @@ const postUploadPage = async (req: Request, res: Response, next: NextFunction) =
           throw new Error('Unable to save to database');
         }
 
-        req.flash('success', ['file submitted', `${req.file.filename}`]);
+        req.flash('success', ['File submitted', `${req.file.filename}`]);
         return res.redirect('/student/upload');
       }
     } catch (error) {

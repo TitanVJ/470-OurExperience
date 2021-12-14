@@ -20,7 +20,7 @@ block content
         p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       div.second-p-b
         h1 Upload Document 
-        form(action="/student/upload" method='POST' enctype='multipart/form-data').mt-3.row
+        form(action=`/student/upload/?_csrf=${csrfToken}` method='POST' enctype='multipart/form-data').mt-3.row
           .col-sm-8.mb-3
             select(class="form-select text-center" name='docType' aria-label="Default select example" required)
               option(selected disabled value="") -- select filetype --
@@ -32,7 +32,7 @@ block content
             label(for="formFile" class="form-label sfu-theme") Pdf File Submission
             input(class="form-control" name='pdfUpload' type="file" id="formFile" required)
           .mb-3
-            button(type='submit').btn.btn-primary Submit
+            button(type='submit') Submit
     
       
     

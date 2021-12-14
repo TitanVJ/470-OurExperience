@@ -12,12 +12,14 @@ const getApplicationListByUserId = async (req: Request, res: Response, next: Nex
   }
   try {
     const applications = await JobApplication.query().where('userId', '=', userId).where('isDeleted', '=', '0').withGraphJoined('posting.[company]');
+    const csrfToken = req.csrfToken();
     res.render('application_list', {
       title: 'My Job Applications',
       applications: applications,
       DateTime: DateTime,
       options: DATE_FORMAT_OPTIONS,
-      applicationDeadlinePassed: applicationDeadlinePassed
+      applicationDeadlinePassed: applicationDeadlinePassed,
+      csrfToken: csrfToken
     });
   } catch (error: any) {
     next(error);

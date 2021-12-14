@@ -31,7 +31,8 @@ const getEvent = async (req: Request, res: Response, next: NextFunction) => {
       res.status(404);
       throw new Error();
     }
-    res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered, DateTime: DateTime, options: DATE_FORMAT_OPTIONS });
+    const csrfToken = req.csrfToken();
+    res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered, DateTime: DateTime, options: DATE_FORMAT_OPTIONS, csrfToken: csrfToken });
   } catch (error: any) {
     next(error);
   }

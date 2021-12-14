@@ -1,5 +1,8 @@
 extends layout 
 
+append headData 
+  meta(name='_csrf', content=csrfToken)
+
 append style 
   link(rel='stylesheet' type='text/css' href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css")
   link(rel='stylesheet' type='text/css' href="/stylesheets/dashboard.css")

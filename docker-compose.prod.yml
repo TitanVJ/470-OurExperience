@@ -4,4 +4,4 @@ services:
   ts-node-express:
     build:
       target: production
-    command: node build/app.js
+    command: npm run start
