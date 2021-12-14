@@ -8,7 +8,7 @@ const getEventList = async (req: Request, res: Response, next: NextFunction) => 
     const events = await Event.query().select('Event.*', Event.relatedQuery('attendees').count().as('attendeeCount'));
     res.render('event_list', { title: 'Events', events: events, DateTime: DateTime });
   } catch (error: any) {
-    next();
+    next(error);
   }
 };
 
@@ -25,10 +25,13 @@ const getEvent = async (req: Request, res: Response, next: NextFunction) => {
         .where('eventId', '=', eventId)
         .andWhere('userId', '=', +req.user.id)
     ).length;
-    if (!event) throw new Error();
+    if (!event) {
+      res.status(404);
+      throw new Error();
+    }
     res.render('event', { title: event.title, event: event, isUserRegistered: isUserRegistered, DateTime: DateTime });
   } catch (error: any) {
-    next();
+    next(error);
   }
 };
 
@@ -40,13 +43,16 @@ const registerForEvent = async (req: Request, res: Response, next: NextFunction)
   }
   try {
     const eventInfo: any = await Event.query().findById(eventId).select('Event.capacity', Event.relatedQuery('attendees').count().as('attendeeCount'));
-    if (eventInfo.attendeeCount >= eventInfo.capacity) throw new Error('Event registration cap already hit!');
-    await validateEventHasNotPassed(eventId);
+    if (eventInfo.attendeeCount >= eventInfo.capacity) {
+      res.status(400);
+      throw new Error('Event registration cap already hit!');
+    }
+    await validateEventHasNotPassed(eventId, res);
     await UserEvent.query().insert({ eventId: eventId, userId: +req.user.id });
     res.sendStatus(201);
   } catch (error: any) {
     console.log('Error:', error);
-    next();
+    next(error);
   }
 };
 
@@ -57,7 +63,7 @@ const unregisterFromEvent = async (req: Request, res: Response, next: NextFuncti
     return;
   }
   try {
-    await validateEventHasNotPassed(eventId);
+    await validateEventHasNotPassed(eventId, res);
     await UserEvent.query()
       .delete()
       .where('eventId', '=', eventId)
@@ -65,7 +71,7 @@ const unregisterFromEvent = async (req: Request, res: Response, next: NextFuncti
     res.sendStatus(204);
   } catch (error: any) {
     console.log('Error:', error);
-    next();
+    next(error);
   }
 };
 
@@ -84,13 +90,14 @@ const getCalendarByUserId = async (req: Request, res: Response, next: NextFuncti
     });
     res.render('calendar', { title: 'My Calendar', events: events });
   } catch (error: any) {
-    next();
+    next(error);
   }
 };
 
-const validateEventHasNotPassed = async (eventId: number) => {
+const validateEventHasNotPassed = async (eventId: number, res: Response) => {
   const event: any = await Event.query().findById(eventId);
   if (event.date < Date.now()) {
+    res.status(400);
     throw new Error('Event date has passed');
   }
 };
