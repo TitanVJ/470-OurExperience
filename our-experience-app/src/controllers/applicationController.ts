@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { JobApplication } from '../models/job_application.model';
 const { DateTime } = require('luxon');
 
+const DATE_FORMAT_OPTIONS = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'America/Vancouver' };
+
 const getApplicationListByUserId = async (req: Request, res: Response, next: NextFunction) => {
   const userId = +req.user.id;
   if (!userId) {
@@ -10,7 +12,13 @@ const getApplicationListByUserId = async (req: Request, res: Response, next: Nex
   }
   try {
     const applications = await JobApplication.query().where('userId', '=', userId).where('isDeleted', '=', '0').withGraphJoined('posting.[company]');
-    res.render('application_list', { title: 'My Job Applications', applications: applications, DateTime: DateTime, applicationDeadlinePassed: applicationDeadlinePassed });
+    res.render('application_list', {
+      title: 'My Job Applications',
+      applications: applications,
+      DateTime: DateTime,
+      options: DATE_FORMAT_OPTIONS,
+      applicationDeadlinePassed: applicationDeadlinePassed
+    });
   } catch (error: any) {
     next(error);
   }

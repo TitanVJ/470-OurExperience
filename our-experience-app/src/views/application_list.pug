@@ -29,8 +29,8 @@ block content
             a(href=`/career/job/${application.posting.id}`) #{ application.posting.title }
           td #{ application.posting.company.name }
           td #{ application.status }
-          td #{ DateTime.fromJSDate(application.submittedAt).toLocaleString(DateTime.DATETIME_MED) }
-          td #{ DateTime.fromJSDate(application.posting.deadline).toLocaleString(DateTime.DATETIME_MED) }
+          td #{ application.submittedAt.toLocaleString('en-us', options) }
+          td #{ application.posting.deadline.toLocaleString('en-us', options) }
           td
             if !applicationDeadlinePassed(application.posting.deadline)
               button(class='cancel-application-button' data-application-id=application.id) Cancel Application
