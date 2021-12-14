@@ -1,11 +1,21 @@
 # Greg and TAs
 Go to [instructor_ta_instructions.md](./markdown/instructor_ta.md)
 
-# Production Build Instructions:
-1. make go-production
+# Build Instructions:
+* Production: `make go-production`
+* Development: `make go-development`
 
-# Development Build Instructions:
-1. make go-development
+You will be directed to CAS login
+## Production Login
+* Username: `ggbaker`
+* Password: `lisp_#1`
+
+## Development Login
+* Username: `test`
+* Password: `password`
+
+# Features
+
 
 # Project Build and Deploy Instructions
 
