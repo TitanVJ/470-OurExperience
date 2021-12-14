@@ -25,8 +25,12 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(session(session_config));
 const cas = new CASAuthentication(cas_config);
+
 app.use(csrf());
 
 // save the user into req so that you can use through out the app
@@ -63,8 +67,7 @@ app.use(
 );
 
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 
 // this is temp. until nginx is setup to serve the static files
 app.use(express.static(path.join(__dirname, 'public')));
