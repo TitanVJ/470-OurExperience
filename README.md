@@ -2,6 +2,7 @@
 * Production: `make go-production`
 * Development: `make go-development`
 
+After building, navigate to http://localhost:8080
 ### Troubleshooting
 If db connection errors occur while building, try to `make migrate` and `make seed` manually.
 
@@ -11,11 +12,13 @@ You will be directed to CAS login.
 * Password: `lisp_#1`
 
 ## Student Logins
-* Username: `test`
-* Password: `password`
+1. 
+    * Username: `test`
+    * Password: `password`
 
-* Username: `newUser`
-* Password: `secret`
+2. 
+    * Username: `newUser`
+    * Password: `secret`
 
 If you logout, you must navigate back to http://localhost:8080 to login again due to problems with the CAS server.
 
