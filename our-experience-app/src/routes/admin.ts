@@ -1,5 +1,6 @@
 import express, {Request, Response, NextFunction} from 'express';
 import admin_controller from '../controllers/admin.controller';
+import company_controller from '../controllers/company.controller';
 import job_posting_controller from '../controllers/job_postings.controller';
 
 const router = express.Router();
@@ -24,9 +25,18 @@ router.post('/job/update/', job_posting_controller.update_job);
 
 router.post('/job/delete', job_posting_controller.delete_job);
 
-router.get('/companies');
+// Company related CRUD routes
+router.get('/companies', company_controller.get_all_companies);
 
-router.get('/company/:id');
+router.get('/company/:id', company_controller.company_details);
+
+router.get('/company/data/:id', company_controller.company_data);
+
+router.post('/company/create', company_controller.create_company);
+
+router.post('/company/update', company_controller.update_company);
+
+router.post('/company/delete', company_controller.delete_company);
 
 router.get('/users')
 
