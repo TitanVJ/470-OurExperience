@@ -1,6 +1,8 @@
 setup:
-	git submodule update --init
 	./setup.sh
+
+submoduleInit:
+	git submodule update --init
 
 build:
 	docker-compose build
@@ -30,12 +32,14 @@ up-production:
 	make seed
 
 go-production:
-	make setup
+	./setup.sh
+	make submoduleInit
 	make build
 	make up-production
 
 go-development:
-	make setup
+	./setup.sh
+	make submoduleInit
 	make build
 	make up-proj
 
