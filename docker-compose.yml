@@ -46,12 +46,8 @@ services:
     container_name: ts-node-express
     expose:
       - '5000'
-    ports:
-      - '5000:5000'
     environment:
       NODE_TLS_REJECT_UNAUTHORIZED: 0
-      CAS_DEV_MODE: ${CAS_DEV_MODE}
-      CAS_DEV_USER: ${CAS_DEV_USER}
     command: npm run dev
 
   web-nginx:

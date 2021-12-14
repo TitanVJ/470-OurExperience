@@ -1,6 +1,8 @@
 setup:
-	git submodule update --init
 	./setup.sh
+
+submoduleInit:
+	git submodule update --init
 
 build:
 	docker-compose build
@@ -13,7 +15,7 @@ up-p:
 
 up-proj:
 	make up
-	sleep 15
+	sleep 20
 	make migrate
 	make seed
 
@@ -25,9 +27,21 @@ stop:
 
 up-production:
 	make up-p
-	sleep 15
+	sleep 20
 	make migrate
 	make seed
+
+go-production:
+	./setup.sh
+	make submoduleInit
+	make build
+	make up-production
+
+go-development:
+	./setup.sh
+	make submoduleInit
+	make build
+	make up-proj
 
 migrate:
 	docker exec ts-node-express node_modules/.bin/knex migrate:latest

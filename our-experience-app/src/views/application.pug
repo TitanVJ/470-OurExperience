@@ -9,6 +9,7 @@ block content
 
     form(action=`/career/job/${job.id}/apply` method='POST').mt-3.row
       .col-sm-8.mb-3
+        input(type="hidden" name="_csrf" value=csrfToken)
         label(for="formFile" class="form-label sfu-theme") Resume*:
         select(class="form-select text-center" id='formFile' name='resumeId' required)
           option(selected disabled value="") -- select filetype --

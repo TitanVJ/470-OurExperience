@@ -14,7 +14,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex('User').truncate();
   await knex.raw('SET FOREIGN_KEY_CHECKS=1;');
 
-  // Inserts seed entries
+  // Inserts seed entries - demo accounts for demonstration
   const password = 'password';
   const salt = await bcrypt.genSalt(12);
   const student = {

@@ -9,7 +9,9 @@ const inputtedReqFile = (req: any, filepath: any, mimetype: any) => {
 };
 
 const getUploadPage = (req: Request, res: Response, next: NextFunction) => {
-  res.render('studentUpload', { title: 'Upload Document' });
+  const csrfToken = req.csrfToken();
+  console.log(csrfToken);
+  res.render('studentUpload', { title: 'Upload Document', csrfToken: csrfToken });
 };
 
 const postUploadPage = async (req: Request, res: Response, next: NextFunction) => {

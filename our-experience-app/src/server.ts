@@ -8,6 +8,7 @@ import flash from 'connect-flash';
 import middlewares from './middlewares/middlewares';
 import { cas_config, session_config } from './config/config';
 import { User } from './models/user.model';
+const csrf = require('csurf');
 
 const CASAuthentication = require('node-cas-authentication');
 
@@ -21,11 +22,15 @@ const eventRouter = require('./routes/event');
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(session(session_config));
 const cas = new CASAuthentication(cas_config);
+app.use(csrf());
 
 // save the user into req so that you can use through out the app
 // additionally save user to locals so that we rendered pages can use them
@@ -40,7 +45,7 @@ app.use(morgan('tiny'));
 const scriptSources = ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdn.datatables.net', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net/'];
 const styleSources = ["'self'", "'unsafe-inline'", 'cdn.datatables.net', 'cdn.jsdelivr.net/', 'fonts.cdnfonts.com'];
 const connectSources = ["'self'"];
-const imgSrc = ['w3.org', 'upload.wikimedia.org'];
+const imgSrc = ['w3.org', 'upload.wikimedia.org', 'cdn.datatables.net'];
 const fontSrc = ['fonts.cdnfonts.com'];
 app.use(flash());
 
@@ -59,9 +64,6 @@ app.use(
 );
 
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 // this is temp. until nginx is setup to serve the static files
 app.use(express.static(path.join(__dirname, 'public')));
 

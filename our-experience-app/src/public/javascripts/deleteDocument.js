@@ -1,4 +1,7 @@
 const deleteDocument = (documentId) => {
+  $.ajaxSetup({
+    headers: { 'X-CSRF-Token': $('meta[name="_csrf"]').attr('content') }
+  });
   $.ajax({
     type: 'DELETE',
     url: `documents/${documentId}`,

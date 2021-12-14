@@ -5,26 +5,31 @@ import { JobApplication } from '../models/job_application.model';
 import { JobPosting } from '../models/job_posting.model';
 
 const getJobApply = async (req: Request, res: Response, next: NextFunction) => {
-  const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
-  const userDocuments: Document[] = await Document.query().where('userId', req.user.id).where('isDeleted', false);
-  const formTypes: any = {
-    resume: [],
-    coverLetter: [],
-    transcript: [],
-    sis: []
-  };
-  userDocuments.forEach((document: Document) => {
-    if (document.documentType === 'resume') {
-      formTypes.resume.push(document);
-    } else if (document.documentType === 'cover-letter') {
-      formTypes.coverLetter.push(document);
-    } else if (document.documentType === 'transcript') {
-      formTypes.transcript.push(document);
-    } else if (document.documentType === 'sis') {
-      formTypes.sis.push(document);
-    }
-  });
-  res.render('application', { title: `${job.title} - ${job.company.name}`, job: job, formTypes: formTypes });
+  try {
+    const job: any = await JobPosting.query().findById(req.params.id).withGraphFetched('company');
+    const userDocuments: Document[] = await Document.query().where('userId', req.user.id).where('isDeleted', false);
+    const formTypes: any = {
+      resume: [],
+      coverLetter: [],
+      transcript: [],
+      sis: []
+    };
+    userDocuments.forEach((document: Document) => {
+      if (document.documentType === 'resume') {
+        formTypes.resume.push(document);
+      } else if (document.documentType === 'cover-letter') {
+        formTypes.coverLetter.push(document);
+      } else if (document.documentType === 'transcript') {
+        formTypes.transcript.push(document);
+      } else if (document.documentType === 'sis') {
+        formTypes.sis.push(document);
+      }
+    });
+    const csrfToken = req.csrfToken();
+    res.render('application', { title: `${job.title} - ${job.company.name}`, job: job, formTypes: formTypes, csrfToken: csrfToken });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const postJobApply = async (req: Request, res: Response, next: NextFunction) => {
