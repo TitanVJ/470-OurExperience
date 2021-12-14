@@ -47,7 +47,7 @@ export const cas_config = {
   cas_version     : '3.0',
   cas_port        : 8443,
   renew           : false,
-  is_dev_mode     : process.env.CAS_DEV_MODE,
+  is_dev_mode     : process.env.CAS_DEV_MODE === 'true',
   dev_mode_user   : process.env.CAS_DEV_USER,
   dev_mode_info   : {
     role: 'Staff'
