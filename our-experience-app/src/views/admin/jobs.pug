@@ -31,6 +31,7 @@ block content
           th Id
           th Job Title
           th Organization
+          th Number of applications
           th Edit
           th Delete
       tbody
@@ -40,7 +41,13 @@ block content
             td
               a( href='/admin/job/'+job.id) #{ job.title }
             td #{ job.company.name }
+            td #{ job.app_count }
             td
               a.btn.btn-primary( role='button' data-bs-toggle='modal' data-bs-target='#update-modal' job_id=job.id) Edit
             td
-              a.btn.btn-danger( role='button' data-bs-toggle='modal' data-bs-target='#delete_modal' job_title=job.title job_id=job.id) Delete
+              if job.app_count > 0
+                div(data-bs-toggle='tooltip' data-bs-placement='bottom' title='Cannot remove Job Posts with Applications')
+                  button.btn.btn-danger(disabled) Delete
+              else
+                div(data-bs-toggle='tooltip' data-bs-placement='bottom' title='Remove '+ job.title)
+                  a.btn.btn-danger( role='button' data-bs-toggle='modal' data-bs-target='#delete_modal' job_title=job.title job_id=job.id) Delete

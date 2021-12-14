@@ -34,6 +34,14 @@ export class JobPosting extends Model {
           },
           to: 'User.id'
         }
+      },
+      applications: {
+        relation: Model.HasManyRelation,
+        modelClass: `${__dirname}/job_application.model`,
+        join: {
+          from: 'JobPosting.id',
+          to: 'JobApplication.postingId'
+        }
       }
     };
   }

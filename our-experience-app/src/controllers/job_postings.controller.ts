@@ -4,10 +4,13 @@ import { JobPosting } from '../models/job_posting.model';
 
 // Read
 const get_all_jobs = async (req: Request, res: Response, next: NextFunction) => {
-  const job_posts = await JobPosting.query().withGraphFetched('company');
+  const job_posts = await JobPosting.query().withGraphFetched('company')
+    .select('*', JobPosting.relatedQuery('applications').count().as('app_count'));
 
   if(req.user.role == 'Staff') {
     const companies = await Company.query();
+    // const counts: any = await JobPosting.query();
+    console.log(job_posts);
     res.render('admin/jobs', { title: 'Manage Job Posts', job_posts: job_posts, companies: companies});
 
   }else{
