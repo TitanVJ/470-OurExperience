@@ -41,6 +41,8 @@ services:
     command: npm run dev
 
   web-nginx:
+    depends_on:
+      - ts-node-express
     container_name: web-nginx
     build:
       context: .
