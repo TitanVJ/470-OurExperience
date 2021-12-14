@@ -18,6 +18,7 @@ const companyRouter = require('./routes/company');
 const careerRouter = require('./routes/career');
 const applicationRouter = require('./routes/application');
 const documentRouter = require('./routes/document');
+const eventRouter = require('./routes/event');
 
 const app = express();
 
@@ -79,6 +80,7 @@ app.use('/student', cas.bounce, studentRouter);
 app.use('/career', cas.bounce, careerRouter);
 app.use('/applications', applicationRouter);
 app.use('/documents', cas.bounce, documentRouter);
+app.use('/events', eventRouter);
 // catch 404's and handle erros
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

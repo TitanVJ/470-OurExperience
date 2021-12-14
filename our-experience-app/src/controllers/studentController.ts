@@ -43,7 +43,7 @@ const postUploadPage = async (req: Request, res: Response, next: NextFunction) =
           throw new Error('Unable to save to database');
         }
 
-        req.flash('success', ['file submitted', `${req.file.filename}`]);
+        req.flash('success', ['File submitted', `${req.file.filename}`]);
         return res.redirect('/student/upload');
       }
     } catch (error) {
