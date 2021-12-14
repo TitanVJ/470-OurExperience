@@ -1,6 +1,12 @@
 # Greg and TAs
 Go to [instructor_ta_instructions.md](./markdown/instructor_ta.md)
 
+# Production Build Instructions:
+1. make go-production
+
+# Development Build Instructions:
+1. make go-development
+
 # Project Build and Deploy Instructions
 
 Proceed with Section A if:
