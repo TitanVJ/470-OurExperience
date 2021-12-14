@@ -8,6 +8,7 @@ mixin delete_confirm_modal(url, msg)
 
         div.modal-body
           form(action=url, method="POST")#delete-form
+            input(type='hidden' name='_csrf' value=csrfToken)
             input(type='hidden' name='id' value='')#id
             label.form-label= 'Delete the following ' + msg +':'
             input(type='text' disabled)#title.form-control

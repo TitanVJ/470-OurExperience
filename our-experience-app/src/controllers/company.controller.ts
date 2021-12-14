@@ -11,7 +11,8 @@ const get_all_companies = async (req: Request, res: Response, next: NextFunction
                                 ) as "numPosts"
                                 from Company;`
                               );
-  res.render('admin/companies', { title: 'Manage Companies', companies: data[0] });
+  const csrf_t = req.csrfToken();
+  res.render('admin/companies', { title: 'Manage Companies', companies: data[0], csrfToken: csrf_t });
 };
 
 const company_details = async (req: Request, res: Response, next: NextFunction) => {

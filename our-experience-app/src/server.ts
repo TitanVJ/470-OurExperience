@@ -7,6 +7,8 @@ import flash from 'connect-flash';
 import middlewares from './middlewares/middlewares';
 import { cas_config, session_config } from './config/config';
 import { User } from './models/user.model';
+const csrf = require('csurf');
+
 import { admin, student } from './middlewares/authorization';
 
 const CASAuthentication = require('node-cas-authentication');
@@ -25,6 +27,7 @@ app.set('view engine', 'pug');
 
 app.use(session(session_config));
 const cas = new CASAuthentication(cas_config);
+app.use(csrf());
 
 // save the user into req so that you can use through out the app
 // additionally save user to locals so that we rendered pages can use them

@@ -10,6 +10,7 @@ section(tabindex='-1')#new-company.modal.fade
 
       div.modal-body
         form(action="/admin/company/create" method="POST")#company-form
+          input(type='hidden' name='_csrf' value=csrfToken)
           input(type='hidden' name='id' value='')#company_id
           div#mb-3
             label(for="name").form-label Company Name

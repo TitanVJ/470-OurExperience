@@ -7,6 +7,7 @@ section(tabindex='-1')#update-modal.modal.fade
 
       div.modal-body
         form(action="/admin/job/update" method="POST")#update-form
+          input(type='hidden' name='_csrf' value=csrfToken)
           input(type='hidden' name='id' value='')#job_id
           div#mb-3
             label(for="title").form-label Job Title

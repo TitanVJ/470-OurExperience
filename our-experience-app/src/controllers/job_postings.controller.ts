@@ -9,9 +9,9 @@ const get_all_jobs = async (req: Request, res: Response, next: NextFunction) => 
 
   if(req.user.role == 'Staff') {
     const companies = await Company.query();
-    // const counts: any = await JobPosting.query();
-    console.log(job_posts);
-    res.render('admin/jobs', { title: 'Manage Job Posts', job_posts: job_posts, companies: companies});
+
+    const csrf_t = req.csrfToken();
+    res.render('admin/jobs', { csrfToken: csrf_t, title: 'Manage Job Posts', job_posts: job_posts, companies: companies});
 
   }else{
     res.render('career_postings', { title: 'Current Job Postings', postings: job_posts });
