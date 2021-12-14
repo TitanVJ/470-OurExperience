@@ -50,7 +50,7 @@ export const cas_config = {
   is_dev_mode     : process.env.CAS_DEV_MODE,
   dev_mode_user   : process.env.CAS_DEV_USER,
   dev_mode_info   : {
-    role: 'admin'
+    role: 'Staff'
   },
   session_name    : 'cas_user',
   session_info    : 'cas_userinfo',
