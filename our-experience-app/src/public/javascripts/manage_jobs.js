@@ -39,15 +39,17 @@ update_modal.addEventListener('show.bs.modal', (event) =>{
         company.value = job_data.company.id;
         company.innerText = job_data.company.name;
 
-        deadline.valueAsDate = new Date( job_data.deadline );
+        deadline.valueAsNumber = new Date( job_data.deadline ).valueOf();
 
         // description.innerText = job_data.description;
-        tinymce.activeEditor.selection.setContent(job_data.description);
+        tinymce.activeEditor.setContent(job_data.description);
         // tinymce.get('#update-form #description').setContent(job_data.description);
     });
 
-    update_modal.addEventListener('hide.bs.modal', (event) =>{
+
+});
+
+update_modal.addEventListener('hide.bs.modal', (event) =>{
         tinymce.activeEditor.setContent('');
 
-    });
 });
