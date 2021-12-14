@@ -75,7 +75,7 @@ const update_job = async (req: Request, res: Response, next: NextFunction) => {
 // Delete
 const delete_job = async (req: Request, res: Response, next: NextFunction) => {
   try{
-    await JobPosting.query().deleteById( req.body. id);
+    await JobPosting.query().deleteById( req.body.id);
 
     req.flash('success', 'Deleted Job Post with ID: '+req.body.id);
   } catch (error) {
