@@ -1,3 +1,5 @@
+# NOTE: THIS IS A CLONE OF THE ORIGINAL REPOSITORY FROM SFU GITLAB
+----
 # Build Instructions:
 * Production: `make go-production`
 * Development: `make go-development`
